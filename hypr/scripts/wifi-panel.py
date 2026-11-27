@@ -123,8 +123,8 @@ class WifiPanel(Panel):
 
         self.refresh_all()
         self.tick_rates()
-        GLib.timeout_add_seconds(1, self.tick_rates)
-        GLib.timeout_add_seconds(4, lambda: self.refresh_all() or True)
+        self.every(1000, self.tick_rates)
+        self.every(4000, self.refresh_all)
         threading.Thread(target=self.ping_loop, daemon=True).start()
 
     def say(self, text):
@@ -366,7 +366,7 @@ class WifiPanel(Panel):
         return True
 
     def ping_loop(self):
-        while True:
+        while self.alive:
             _, out, _ = run("ping", "-c", "3", "-i", "0.3", "-W", "1", "1.1.1.1", timeout=8)
             loss = re.search(r"([\d.]+)% packet loss", out)
             avg = re.search(r"= [\d.]+/([\d.]+)/", out)

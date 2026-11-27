@@ -59,7 +59,6 @@ tooltip label {
 #network,
 #pulseaudio,
 #backlight,
-#cpu,
 #battery,
 #clock,
 #custom-notification {
@@ -95,7 +94,6 @@ tooltip label {
 #network:hover,
 #pulseaudio:hover,
 #backlight:hover,
-#cpu:hover,
 #battery:hover,
 #clock:hover,
 #custom-notification:hover {

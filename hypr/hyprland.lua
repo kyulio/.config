@@ -47,6 +47,8 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("wl-paste --type image --watch cliphist store &")
     -- Spelljinxer 알림 센터(SwayNC) 자동 실행 추가
     hl.exec_cmd("swaync &")
+    -- waybar 팝업 패널 데몬 (Wi-Fi/블루투스/사운드/배터리/날씨/달력)
+    hl.exec_cmd("/usr/bin/python3 /home/kyulio/.config/hypr/scripts/panels.py &")
     hl.exec_cmd("/home/kyulio/.config/hypr/scripts/bluetooth-agent.py &")
     -- 암호창(Polkit) 에이전트 자동 실행
     hl.exec_cmd("pgrep -x hyprpolkitagent >/dev/null || /usr/lib/hyprpolkitagent/hyprpolkitagent &")
@@ -280,7 +282,6 @@ hl.window_rule({ name = "pavucontrol-old", match = { class = "pavucontrol" }, fl
 hl.window_rule({ name = "pavucontrol-new", match = { class = "org.pulseaudio.pavucontrol" }, float = true, pin = true, move = "1930 45", size = "600 450" })
 hl.window_rule({ name = "blueman", match = { class = "Blueman-manager" }, float = true, pin = true, move = "1930 45", size = "600 450" })
 hl.window_rule({ name = "network", match = { class = "nm-connection-editor" }, float = true, pin = true, move = "1930 45", size = "600 450" })
-hl.window_rule({ name = "calendar-popup", match = { class = "org.kyulio.Calendar" }, float = true, pin = true, move = "1120 46", border_size = 0, no_anim = true })
 hl.window_rule({ name = "zenity-brightness", match = { title = "Brightness" }, float = true, pin = true, move = "1930 45", size = "350 100" })
 -- hl.window_rule({ name = "osu-tearing", match = { class = "osu!" }, immediate = true })
 

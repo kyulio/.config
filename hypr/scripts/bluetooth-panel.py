@@ -63,11 +63,14 @@ class BluetoothPanel(Panel):
         card.append(self.status)
 
         self.refresh()
-        self.bus.signal_subscribe(BLUEZ, "org.freedesktop.DBus.Properties", "PropertiesChanged",
-                                  None, None, Gio.DBusSignalFlags.NONE, self.on_signal)
-        self.bus.signal_subscribe(BLUEZ, "org.freedesktop.DBus.ObjectManager", None,
-                                  None, None, Gio.DBusSignalFlags.NONE, self.on_signal)
-        self.connect("close-request", self.on_close)
+        subs = [
+            self.bus.signal_subscribe(BLUEZ, "org.freedesktop.DBus.Properties", "PropertiesChanged",
+                                      None, None, Gio.DBusSignalFlags.NONE, self.on_signal),
+            self.bus.signal_subscribe(BLUEZ, "org.freedesktop.DBus.ObjectManager", None,
+                                      None, None, Gio.DBusSignalFlags.NONE, self.on_signal),
+        ]
+        self.on_cleanup(lambda: [self.bus.signal_unsubscribe(s) for s in subs])
+        self.on_cleanup(self.on_close)
 
     def say(self, text):
         self.status.set_label(text)
@@ -117,7 +120,8 @@ class BluetoothPanel(Panel):
 
     def _flush(self):
         self._pending = False
-        self.refresh()
+        if self.alive:
+            self.refresh()
         return False
 
     # ── 그리기 ──
@@ -244,7 +248,7 @@ class BluetoothPanel(Panel):
         self.render()
 
     def _stop_scan(self):
-        if self.scanning:
+        if self.alive and self.scanning:
             self.toggle_scan()
         return False
 

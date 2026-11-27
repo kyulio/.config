@@ -113,6 +113,15 @@ progressbar progress {
 
 .status { color: #888888; font-size: 11px; }
 
+/* 슬라이더 (사운드 패널 / 알림센터와 동일) */
+scale { padding: 0; margin: 0 4px; }
+scale trough { background: rgba(255, 255, 255, 0.14); border: none; border-radius: 6px; min-height: 6px; }
+scale trough highlight { background: #ffffff; border: none; border-radius: 6px; }
+scale slider {
+  background: #ffffff; border: none; box-shadow: none;
+  min-width: 14px; min-height: 14px; margin: -5px; border-radius: 50%;
+}
+
 scrollbar { background: transparent; }
 scrollbar slider { background: rgba(255, 255, 255, 0.2); min-width: 4px; border-radius: 4px; }
 """
@@ -155,19 +164,23 @@ def stat_grid(keys):
 
 
 class Panel(Gtk.ApplicationWindow):
-    """layer-shell 카드 패널. 하위 클래스는 self.card 에 내용을 채움."""
+    """layer-shell 카드 패널. 하위 클래스는 self.card 에 내용을 채움.
+
+    주기 작업은 self.every() 로 등록 → 닫힐 때 자동 정리 (상시 실행 데몬에서 누수 방지).
+    """
 
     ANCHOR = "right"  # "right" | "center"
     WIDTH = 400
-    # True 면 첫 데이터가 준비돼 self.ready() 를 부를 때까지 띄우지 않음.
-    # (뜬 직후 크기가 바뀌면 Hyprland 가 포커스를 옮겨 패널이 닫히는 문제 방지)
-    DEFER_PRESENT = False
+    CSS = ""
 
     def __init__(self, app):
         super().__init__(application=app, decorated=False, resizable=False)
         self.set_default_size(self.WIDTH, -1)
         self.set_size_request(self.WIDTH, -1)
         self.hold_open = False
+        self.alive = True
+        self._sources = []
+        self._cleanups = []
 
         # 바깥 클릭을 받아 패널을 닫는 투명 전체화면 레이어 (swaync 의 cover-screen 과 같은 방식)
         self.backdrop = Gtk.Window(application=app, decorated=False)
@@ -200,15 +213,36 @@ class Panel(Gtk.ApplicationWindow):
         keys = Gtk.EventControllerKey()
         keys.connect("key-pressed", self._on_key)
         self.add_controller(keys)
-        self.connect("close-request", lambda *_: self.backdrop.destroy() or False)
+        self.connect("close-request", self._on_close)
+
+    # ── 수명 관리 ──
+    def every(self, ms, fn):
+        """ms 마다 fn() 실행 (패널이 닫히면 자동 해제)."""
+        self._sources.append(GLib.timeout_add(ms, lambda: bool(self.alive and (fn() or True))))
+
+    def on_cleanup(self, fn):
+        self._cleanups.append(fn)
+
+    def _on_close(self, *_):
+        self.alive = False
+        for sid in self._sources:
+            GLib.source_remove(sid)
+        self._sources.clear()
+        for fn in self._cleanups:
+            try:
+                fn()
+            except Exception:  # noqa: BLE001
+                pass
+        self.backdrop.destroy()
+        return False
 
     def bg(self, fn, done=None):
         import threading
 
         def work():
             res = fn()
-            if done:
-                GLib.idle_add(done, res)
+            if done and self.alive:
+                GLib.idle_add(lambda: self.alive and done(res) and False)
 
         threading.Thread(target=work, daemon=True).start()
 
@@ -227,47 +261,32 @@ class Panel(Gtk.ApplicationWindow):
         return False
 
 
-def close_other_panels():
-    """다른 패널이 열려 있으면 닫음 (한 번에 하나만)."""
-    me = os.getpid()
-    for pid in os.listdir("/proc"):
-        if not pid.isdigit() or int(pid) == me:
-            continue
-        try:
-            cmd = open(f"/proc/{pid}/cmdline", "rb").read().split(b"\0")
-        except OSError:
-            continue
-        if (len(cmd) > 1 and os.path.basename(cmd[0]).startswith(b"python")
-                and cmd[1].endswith(b"-panel.py") and b"/hypr/scripts/" in cmd[1]):
-            try:
-                os.kill(int(pid), 15)
-            except OSError:
-                pass
+def load_css(css):
+    provider = Gtk.CssProvider()
+    provider.load_from_string(BASE_CSS + css)
+    Gtk.StyleContext.add_provider_for_display(
+        Gdk.Display.get_default(), provider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
 
 class PanelApp(Gtk.Application):
-    def __init__(self, app_id, window_cls, css=""):
+    """패널 하나만 띄우는 단독 실행용 (디버깅). 평소엔 panels.py 데몬을 씀."""
+
+    def __init__(self, app_id, window_cls):
         super().__init__(application_id=app_id)
         self.window_cls = window_cls
-        self.css = css
         self.window = None
 
     def do_activate(self):
-        if self.window:  # 두 번째 실행 → 닫기
+        if self.window:
             self.window.close()
             return
-        close_other_panels()
-        provider = Gtk.CssProvider()
-        provider.load_from_string(BASE_CSS + self.css)
-        Gtk.StyleContext.add_provider_for_display(
-            Gdk.Display.get_default(), provider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
+        load_css(self.window_cls.CSS)
         self.window = self.window_cls(self)
         self.window.connect("close-request", lambda *_: self.quit() or False)
-        if self.window.DEFER_PRESENT:
-            GLib.timeout_add(2500, lambda: self.window.ready() or False)  # 안전장치
-        else:
-            self.window.ready()
+        self.window.ready()
 
 
 def main(app_id, window_cls, css=""):
-    sys.exit(PanelApp(app_id, window_cls, css).run(None))
+    if css:
+        window_cls.CSS = css
+    sys.exit(PanelApp(app_id, window_cls).run(None))

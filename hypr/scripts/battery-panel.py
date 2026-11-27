@@ -81,7 +81,7 @@ class BatteryPanel(Panel):
 
         self.refresh_sysfs()
         self.refresh_tools()
-        GLib.timeout_add_seconds(3, lambda: self.refresh_sysfs() or True)
+        self.every(3000, self.refresh_sysfs)
 
     def segs(self, parent, items, cb):
         box = Gtk.Box(spacing=6, homogeneous=True)

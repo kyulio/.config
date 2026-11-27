@@ -7,7 +7,7 @@
     "spacing": 0,
     "modules-left": ["custom/power", "hyprland/workspaces", "custom/spectrum"],
     "modules-center": ["custom/spacer", "clock", "custom/weather"],
-    "modules-right": ["group/tray-expander", "bluetooth", "network", "pulseaudio", "backlight", "cpu", "battery", "custom/notification"],
+    "modules-right": ["group/tray-expander", "bluetooth", "network", "pulseaudio", "backlight", "battery", "custom/notification"],
 
     "custom/power": {
         "format": "⭘",
@@ -39,7 +39,7 @@
 
     "clock": {
         "format": "{:%a %m/%d  %H:%M}",
-        "on-click": "/home/kyulio/.config/hypr/scripts/calendar-popup.py &",
+        "on-click": "/home/kyulio/.config/hypr/scripts/panel.sh calendar",
         "tooltip": false
     },
 
@@ -54,7 +54,7 @@
         "exec": "/home/kyulio/.config/hypr/scripts/weather.py --waybar",
         "return-type": "json",
         "interval": 600,
-        "on-click": "/home/kyulio/.config/hypr/scripts/weather-panel.py &"
+        "on-click": "/home/kyulio/.config/hypr/scripts/panel.sh weather"
     },
 
     "custom/spectrum": {
@@ -112,7 +112,7 @@
         "tooltip-format": "Bluetooth: {status}",
         "tooltip-format-connected": "{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}",
-        "on-click": "/home/kyulio/.config/hypr/scripts/bluetooth-panel.py &",
+        "on-click": "/home/kyulio/.config/hypr/scripts/panel.sh bluetooth",
         "on-click-right": "/home/kyulio/.config/hypr/scripts/bluetooth-menu.sh &"
     },
 
@@ -126,7 +126,7 @@
         "tooltip-format-ethernet": "Ethernet  {ipaddr}",
         "tooltip-format-disconnected": "Disconnected",
         "interval": 3,
-        "on-click": "/home/kyulio/.config/hypr/scripts/wifi-panel.py &",
+        "on-click": "/home/kyulio/.config/hypr/scripts/panel.sh wifi",
         "on-click-right": "/home/kyulio/.config/hypr/scripts/wifi-menu.sh &"
     },
 
@@ -142,7 +142,7 @@
         },
         "scroll-step": 5,
         "tooltip-format": "{desc}  {volume}%",
-        "on-click": "/home/kyulio/.config/hypr/scripts/audio-panel.py &",
+        "on-click": "/home/kyulio/.config/hypr/scripts/panel.sh audio",
         "on-click-middle": "swaync-client -t -sw",
         "on-click-right": "pkill -x pavucontrol || env GTK_THEME=Adwaita:dark pavucontrol &"
     },
@@ -154,12 +154,6 @@
         "on-click": "swaync-client -t -sw"
     },
 
-    "cpu": {
-        "interval": 5,
-        "format": "󰍛",
-        "tooltip-format": "CPU {usage}%",
-        "on-click": "kitty -e btop &"
-    },
 
     "battery": {
         "states": { "warning": 30, "critical": 15 },
@@ -170,6 +164,6 @@
         "format-icons": ["󰁺", "󰁼", "󰁾", "󰂀", "󰁹"],
         "tooltip-format": "{timeTo}  ({power:.1f}W)",
         "interval": 10,
-        "on-click": "/home/kyulio/.config/hypr/scripts/battery-panel.py &"
+        "on-click": "/home/kyulio/.config/hypr/scripts/panel.sh battery"
     }
 }
