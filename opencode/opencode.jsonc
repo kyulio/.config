@@ -1,0 +1,21 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "rea": {"disabled":false,
+        "type": "local",
+        "command": [
+          "/usr/bin/node",
+          "/home/kyulio/.npm-global/bin/rea",
+          "mcp"
+          
+        ],
+        "environment": {
+          "REA_JADX_MCP_JAR": "/home/kyulio/.local/share/rea/android/jadx-headless-mcp-0.7.1-all.jar",
+          "GHIDRA_INSTALL_DIR": "/opt/ghidra",
+          "JAVA_HOME": "/usr/lib/jvm/liberica-jdk-full"
+        }
+      }
+    }
+  }
+}

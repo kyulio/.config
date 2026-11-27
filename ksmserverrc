@@ -1,0 +1,11 @@
+[LegacySession: saved at previous logout]
+count=0
+
+[Session: saved at previous logout]
+clientId1=10d4e8756c000178784539200000015890002
+count=1
+discardCommand1[$e]=rm,-f,$HOME/.cache/sessions/Thunar-10d4e8756c000178784539200000015890002
+program1=Thunar
+restartCommand1=Thunar,--sm-client-id,10d4e8756c000178784539200000015890002,--daemon
+restartStyleHint1=0
+userId1=kyulio

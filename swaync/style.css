@@ -1,183 +1,192 @@
+/* 알림센터 — hypr/scripts/panel_base.py 패널들과 같은 모노크롬 카드 디자인 */
 @import url("/etc/xdg/swaync/style.css");
 
 :root {
-  --cc-bg: rgba(8, 8, 8, 0.68);
-  --noti-border-color: rgba(255, 255, 255, 0.14);
-  --noti-bg: 16, 16, 16;
-  --noti-bg-alpha: 0.68;
+  --cc-bg: rgba(8, 8, 8, 0.82);
+  --noti-border-color: rgba(255, 255, 255, 0.12);
+  --noti-bg: 24, 24, 24;
+  --noti-bg-alpha: 1;
   --noti-bg-darker: rgba(255, 255, 255, 0.05);
-  --noti-bg-hover: rgba(255, 255, 255, 0.1);
+  --noti-bg-hover: rgba(255, 255, 255, 0.08);
   --noti-bg-focus: rgba(255, 255, 255, 0.08);
-  --noti-close-bg: rgba(255, 255, 255, 0.12);
-  --noti-close-bg-hover: rgba(255, 255, 255, 0.2);
+  --noti-close-bg: rgba(255, 255, 255, 0.10);
+  --noti-close-bg-hover: rgba(255, 255, 255, 0.20);
   --text-color: #ffffff;
-  --text-color-disabled: #888888;
+  --text-color-disabled: #777777;
   --bg-selected: #ffffff;
-  --border-radius: 10px;
-  --notification-icon-size: 40px;
+  --border-radius: 8px;
+  --notification-icon-size: 36px;
   --notification-shadow: none;
-  --font-size-body: 13px;
-  --font-size-summary: 14px;
+  --font-size-body: 12px;
+  --font-size-summary: 13px;
 }
 
 * {
-  font-family: "JetBrainsMono Nerd Font", "Noto Sans CJK KR";
+  font-family: "JetBrainsMono Nerd Font Propo", "Noto Sans CJK KR";
+  font-size: 12px;
 }
 
+/* ── 패널 카드 ── */
 .control-center {
+  background: rgba(8, 8, 8, 0.82);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 10px;
-  padding: 6px;
+  padding: 8px 6px;
+  transition: background 150ms ease-out;
 }
+.control-center:hover { background: rgba(8, 8, 8, 0.95); }
 
-.notification-row .notification-background .notification {
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: none;
-}
+.widget { margin: 4px 8px; }
 
-.notification-row .notification-background .notification.critical {
-  border: 2px solid #ffffff;
-}
-
-.floating-notifications .notification {
-  border: 1px solid rgba(255, 255, 255, 0.16);
-}
-
-.widget {
-  margin: 6px 8px;
-}
-
+/* ── 제목 (패널 hero-name 과 같은 크기) ── */
+.widget-title { margin-top: 6px; }
 .widget-title > label {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
+  color: #ffffff;
 }
-
 .widget-title > button {
-  background: rgba(255, 255, 255, 0.1);
-  color: #dddddd;
-  border: none;
-  border-radius: 8px;
-  padding: 4px 12px;
-  font-size: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 7px;
+  color: #bbbbbb;
+  padding: 3px 12px;
+  font-size: 11px;
   box-shadow: none;
 }
-
 .widget-title > button:hover {
-  background: #333333;
+  background: rgba(255, 255, 255, 0.10);
   color: #ffffff;
 }
 
+/* ── 방해금지 (패널 스위치와 동일) ── */
 .widget-dnd {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   padding: 6px 12px;
 }
+.widget-dnd > label { color: #dddddd; font-size: 12px; }
+.widget-dnd switch { background: #333333; border: none; border-radius: 12px; }
+.widget-dnd switch:checked { background: #ffffff; }
+.widget-dnd switch slider { background: #888888; border: none; border-radius: 12px; min-width: 18px; min-height: 18px; }
+.widget-dnd switch:checked slider { background: #000000; }
 
-.widget-dnd label {
-  font-size: 13px;
-}
-
-.widget-dnd switch {
-  background: #333333;
-  border: none;
-  border-radius: 12px;
-}
-
-.widget-dnd switch:checked {
-  background: #ffffff;
-}
-
-.widget-dnd switch slider {
-  background: #888888;
-  border: none;
-  border-radius: 12px;
-}
-
-.widget-dnd switch:checked slider {
-  background: #000000;
-}
-
-.widget-slider,
+/* ── 볼륨 / 밝기 (오디오 패널 슬라이더와 동일) ── */
 .widget-volume,
 .widget-backlight {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
-  padding: 4px 12px;
+  padding: 4px 10px;
 }
-
-.widget-slider label,
 .widget-volume label,
 .widget-backlight label {
-  font-size: 18px;
-  min-width: 24px;
-  color: #dddddd;
+  font-size: 17px;
+  min-width: 28px;
+  color: #ffffff;
 }
-
-scale trough {
-  background: rgba(255, 255, 255, 0.14);
-  border: none;
-  border-radius: 6px;
-  min-height: 6px;
-}
-
-scale trough highlight {
-  background: #ffffff;
-  border: none;
-  border-radius: 6px;
-}
-
+scale trough { background: rgba(255, 255, 255, 0.14); border: none; border-radius: 6px; min-height: 6px; }
+scale trough highlight { background: #ffffff; border: none; border-radius: 6px; }
 scale slider {
-  background: #ffffff;
-  border: none;
+  background: #ffffff; border: none; box-shadow: none;
+  min-width: 14px; min-height: 14px; margin: -5px; border-radius: 50%;
+}
+
+/* ── 미디어 ── */
+.widget-mpris .widget-mpris-player {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
   box-shadow: none;
-  min-width: 14px;
-  min-height: 14px;
-  margin: -5px;
-  border-radius: 50%;
-}
-
-progressbar trough,
-.notification progressbar trough {
-  background: rgba(255, 255, 255, 0.14);
-  border: none;
-  border-radius: 6px;
-  min-height: 6px;
-}
-
-progressbar progress,
-.notification progressbar progress {
-  background: #ffffff;
-  border: none;
-  border-radius: 6px;
-  min-height: 6px;
-}
-
-.control-center .control-center-list .notification {
+  padding: 8px;
   margin: 0;
-  box-shadow: none;
 }
+.widget-mpris .widget-mpris-player .mpris-background { filter: none; opacity: 0; }
+.widget-mpris .widget-mpris-player .mpris-overlay { background: transparent; padding: 0; }
+.widget-mpris .widget-mpris-title { font-weight: 700; color: #ffffff; font-size: 13px; }
+.widget-mpris .widget-mpris-subtitle { color: #888888; font-size: 11px; }
+.widget-mpris .widget-mpris-album-art { border-radius: 6px; box-shadow: none; }
+.widget-mpris button { color: #dddddd; background: none; border: none; box-shadow: none; border-radius: 7px; }
+.widget-mpris button:hover { background: rgba(255, 255, 255, 0.10); color: #ffffff; }
 
-.notification-row .notification-background {
-  padding: 4px 8px;
+/* ── 알림 카드 (패널 row 와 같은 톤) ── */
+.control-center .control-center-list .notification,
+.notification-row .notification-background .notification {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  box-shadow: none;
+  margin: 0;
 }
+.notification-row .notification-background .notification:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+.notification-row .notification-background .notification.critical {
+  border: 1px solid #ffffff;
+}
+.notification-row .notification-background { padding: 3px 8px; }
+.notification-row:focus,
+.notification-group:focus { background: transparent; }
 
 .notification-row .notification-background .notification .notification-default-action .notification-content {
   padding: 10px 12px;
 }
+.notification-content .text-box .summary { font-size: 13px; font-weight: 700; color: #ffffff; }
+.notification-content .text-box .body { font-size: 12px; color: #bbbbbb; }
+.notification-content .text-box .time { font-size: 10px; color: #777777; }
+.notification-content .image,
+.notification-content .app-icon { border-radius: 6px; }
 
-.notification-group .notification-group-headers {
-  margin: 4px 8px;
+.notification-row .notification-background .notification .notification-action > button {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 7px;
+  color: #dddddd;
+  box-shadow: none;
+}
+.notification-row .notification-background .notification .notification-action > button:hover {
+  background: rgba(255, 255, 255, 0.10);
+  color: #ffffff;
 }
 
-.notification-row:focus,
-.notification-group:focus {
-  background: transparent;
+.close-button {
+  background: rgba(255, 255, 255, 0.10);
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  box-shadow: none;
+}
+.close-button:hover { background: rgba(255, 255, 255, 0.22); }
+
+.notification-group .notification-group-headers { margin: 6px 10px 2px 10px; }
+.notification-group .notification-group-headers .notification-group-header {
+  color: #777777;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
-.control-center {
-  backdrop-filter: blur(20px);
-}
+.control-center .control-center-list-placeholder { opacity: 0.4; }
 
+/* progress (알림 안 진행률) */
+progressbar trough { background: rgba(255, 255, 255, 0.14); border: none; border-radius: 6px; min-height: 6px; }
+progressbar progress { background: #ffffff; border: none; border-radius: 6px; min-height: 6px; }
+
+/* ── 화면에 뜨는 팝업 알림 ── */
 .floating-notifications .notification-row .notification-background .notification {
-  background: rgba(16, 16, 16, 0.93);
+  background: rgba(8, 8, 8, 0.90);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+}
+
+/* 쌓인(접힌) 알림 뒷장 + 포커스 테두리 제거 */
+.notification-group.collapsed .notification-row .notification {
+  background: rgb(24, 24, 24);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+.notification-group,
+.notification-row,
+.notification-group:focus-visible,
+.notification-row:focus-visible,
+*:focus-visible {
+  outline: none;
+  box-shadow: none;
 }

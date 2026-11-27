@@ -21,9 +21,9 @@
   "timeout-critical": 0,
   "fit-to-screen": false,
   "relative-timestamps": true,
-  "control-center-width": 420,
+  "control-center-width": 400,
   "control-center-height": 640,
-  "notification-window-width": 380,
+  "notification-window-width": 400,
   "keyboard-shortcuts": true,
   "notification-grouping": true,
   "image-visibility": "when-available",
@@ -36,9 +36,10 @@
   "notification-visibility": {},
   "widgets": [
     "title",
+    "dnd",
     "volume",
     "backlight",
-    "dnd",
+    "mpris",
     "notifications"
   ],
   "widget-config": {
@@ -48,10 +49,10 @@
     "title": {
       "text": "Notifications",
       "clear-all-button": true,
-      "button-text": "Clear All"
+      "button-text": "Clear all"
     },
     "dnd": {
-      "text": "Do Not Disturb"
+      "text": "Do not disturb"
     },
     "volume": {
       "label": "󰕾"
@@ -61,6 +62,10 @@
       "device": "nvidia_wmi_ec_backlight",
       "subsystem": "backlight",
       "min": 5
+    },
+    "mpris": {
+      "image-size": 56,
+      "blur": false
     }
   }
 }

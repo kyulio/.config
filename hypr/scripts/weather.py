@@ -63,14 +63,36 @@ def _fetch():
         "icon": icon_for(code, night=hour < 6 or hour >= 19),
         "desc": DESC_KO.get(code, c["weatherDesc"][0]["value"]),
         "place": area["areaName"][0]["value"],
+        "uv": int(c.get("uvIndex", 0) or 0),
+        "pressure": int(c.get("pressure", 0) or 0),
+        "visibility": int(c.get("visibility", 0) or 0),
+        "precip": float(c.get("precipMM", 0) or 0),
+        "sunrise": raw["weather"][0]["astronomy"][0]["sunrise"],
+        "sunset": raw["weather"][0]["astronomy"][0]["sunset"],
         "days": [],
         "fetched": time.time(),
     }
     for w in raw["weather"]:
         noon = int(w["hourly"][4]["weatherCode"])
+        rain = max(int(h.get("chanceofrain", 0) or 0) for h in w["hourly"])
         data["days"].append({"date": w["date"], "max": int(w["maxtempC"]), "min": int(w["mintempC"]),
-                             "code": noon, "icon": icon_for(noon)})
+                             "code": noon, "icon": icon_for(noon),
+                             "desc": DESC_KO.get(noon, w["hourly"][4]["weatherDesc"][0]["value"]),
+                             "rain": rain})
     return data
+
+
+def cached():
+    """네트워크 없이 캐시만 즉시 읽기."""
+    try:
+        with open(CACHE) as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return None
+
+
+def is_stale(d):
+    return not d or time.time() - d.get("fetched", 0) >= MAX_AGE
 
 
 def get(force=False):

@@ -1,0 +1,70 @@
+<application>
+  <component name="ActionsLocalSummary">
+    <e n="$SelectAll">
+      <i c="1" l="1786674001027" />
+    </e>
+    <e n="Debug">
+      <i c="1" l="1786713120079" />
+    </e>
+    <e n="EditorCopy">
+      <i c="4" l="1786674407702" />
+    </e>
+    <e n="EditorPaste">
+      <i c="1" l="1786674157191" />
+    </e>
+    <e n="RedesignedRunConfigurationSelector">
+      <i c="1" l="1786711060324" />
+    </e>
+    <e n="RiderOpenSolution">
+      <i c="1" l="1786670197128" />
+    </e>
+    <e n="RiderProblemsViewToolsetContextPopupAction">
+      <i c="1" l="1786670244977" />
+    </e>
+    <e n="Run">
+      <i c="15" l="1786721978688" />
+    </e>
+    <e n="Terminal.CopySelectedText">
+      <i c="1" l="1786674293857" />
+    </e>
+    <e n="Terminal.Find">
+      <i c="1" l="1786674289895" />
+    </e>
+    <e n="Terminal.Paste">
+      <i c="4" l="1786674379850" />
+    </e>
+    <e n="Terminal.PasteFromHistory">
+      <i c="3" l="1786674377278" />
+    </e>
+    <e n="com.intellij.find.SearchReplaceComponent$CloseAction">
+      <i c="1" l="1786674291192" />
+    </e>
+    <e n="com.intellij.openapi.fileEditor.impl.tabActions.CloseTab">
+      <i c="2" l="1786670231234" />
+    </e>
+    <e n="com.intellij.openapi.ui.DialogWrapper$5">
+      <i c="2" l="1786680881234" />
+    </e>
+    <e n="com.intellij.openapi.wm.impl.SquareAnActionButton">
+      <i c="3" l="1786711069777" />
+    </e>
+    <e n="com.intellij.terminal.frontend.action.SendShortcutToTerminalAction">
+      <i c="8" l="1786674381230" />
+    </e>
+    <e n="com.intellij.toolWindow.ToolWindowHeader$HideAction">
+      <i c="1" l="1786670236460" />
+    </e>
+    <e n="com.jetbrains.rider.build.redesign.ErrorsToggleAction">
+      <i c="1" l="1786711071654" />
+    </e>
+    <e n="com.jetbrains.rider.build.redesign.WarningsToggleAction">
+      <i c="1" l="1786711072100" />
+    </e>
+    <e n="com.jetbrains.rider.diagnostics.RiderUnsupportedNetSdkChecker$extensionCreated$1$notification$1$1">
+      <i c="2" l="1786709711379" />
+    </e>
+    <e n="com.jetbrains.rider.problemsView.actions.RiderProblemsViewPopupAction">
+      <i c="1" l="1786670257665" />
+    </e>
+  </component>
+</application>

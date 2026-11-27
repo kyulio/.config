@@ -1,25 +1,71 @@
-# 화이트리스트: 기본은 전부 무시, 데스크톱 설정만 포함
-/*
-!/.gitignore
-!/hypr/
-!/waybar/
-!/rofi/
-!/swaync/
-!/kitty/
-!/nvim/
-!/wlogout/
-!/colors/
-!/gtk-3.0/
-!/gtk-4.0/
-!/kime/
-!/btop/
-!/yazi/
-!/lazygit/
-!/mpv/
-!/cava/
-!/mimeapps.list
-!/user-dirs.dirs
+# ~/.config 백업 — 기본은 전부 포함, 아래(비밀정보·캐시·앱 데이터)만 제외
 
-__pycache__/
+# ── 비밀정보 (토큰·키·비밀번호·계정) ──
+/gh/
+/antigravity/
+/kdeconnect/
+/pulse/
+/libaccounts-glib/
+/opencode/service.json
+/opencode/*.rea.backup*
+/obs-studio/plugin_config/obs-websocket/
+/obs-studio/basic/profiles/*/service.json
+/Vencord/settings/settings.json
+
+# ── 브라우저 / Electron 앱 데이터 (프로필·쿠키·캐시) ──
+/discord/
+/vesktop/
+/fluxer/
+/tetrio-desktop/
+/t3code-v2/
+/Antigravity/
+/Antigravity IDE/
+/Token Monitor/
+/Termius/
+/google-chrome/
+/mozilla/
+/zen/
+/naver-whale/
+/net.imput.helium/
+/Vencord/dist/
+
+# ── 상태·캐시·로그 ──
+/session/
+/dconf/
+/tokscale/*
+!/tokscale/settings.json
+/OpenTabletDriver/Logs/
+/obs-studio/logs/
+/obs-studio/crashes/
+/obs-studio/updates/
+/obs-studio/profiler_data/
+/ghidra/**/osgi/
+/ghidra/**/symbols/
+/JetBrains/**/event-log-metadata/
+/JetBrains/**/workspace/
+/JetBrains/**/tasks/
+/JetBrains/**/ssl/
+/JetBrains/**/*.db
+/REAPER/Data/
+/REAPER/MetadataCaches/
+/REAPER/reaper-*.ini.bak
+/unity3d/**/Analytics/
+/unity3d/**/*.log
+/hypr_backup_*/
 /hypr/scripts/backup/
 /waybar/backup/
+
+# ── 공통 ──
+node_modules/
+__pycache__/
+Cache/
+GPUCache/
+Crashpad/
+*.log
+*.lock
+*.sqlite
+*.sqlite-*
+*.bak
+/REAPER/ColorThemes/Default_*
+/REAPER/Scripts/Cockos/
+/JetBrains/**/*.vmoptions
