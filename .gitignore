@@ -81,3 +81,25 @@ Crashpad/
 /autostart/mimeinfo.cache
 /net.golbin.hop/.window-state.json
 /REAPER/ReaPack/registry.db
+
+# ── 개인정보: 등록 정보·기기 ID·MAC·최근 파일 ──
+/REAPER/reaper-reginfo*.ini
+/unity3d/
+/obs-studio/basic/profiles/*/basic.ini
+/vlc/vlc-qt-interface.conf
+/QtProject.conf
+/bluedevilglobalrc
+/JetBrains/**/options/other.xml
+/JetBrains/**/options/trusted*.xml
+/JetBrains/**/options/*statistics*.xml
+/JetBrains/**/resharper-host/processes/
+# 일반적인 비밀정보 패턴
+*.pem
+*.p12
+*.pfx
+*.env
+!/tosu/tosu.env
+*secret*
+*token*
+id_rsa*
+id_ed25519*
