@@ -33,7 +33,8 @@ from gi.repository import Gtk4LayerShell as Layer  # noqa: E402
 
 BASE_CSS = """
 window { background: transparent; }
-window.backdrop { background: rgba(0, 0, 0, 0.01); }  /* 완전 투명이면 그려지지 않아 클릭을 못 받음 */
+window.backdrop { background: rgba(0, 0, 0, 0.01); }
+window.backdrop.dim { background: rgba(0, 0, 0, 0.45); }  /* 완전 투명이면 그려지지 않아 클릭을 못 받음 */
 
 .card {
   transition: background 150ms ease-out;
@@ -82,6 +83,9 @@ switch:checked slider { background: #000000; }
 }
 .seg:hover { background: rgba(255, 255, 255, 0.10); color: #ffffff; }
 .seg.on { background: rgba(255, 255, 255, 0.16); border-color: rgba(255, 255, 255, 0.35); color: #ffffff; }
+.seg.primary { background: #ffffff; border-color: #ffffff; color: #000000; font-weight: 700; }
+.seg.primary:hover { background: #dddddd; }
+.seg:disabled { opacity: 0.4; }
 
 .row-btn {
   background: none; border: 1px solid transparent; box-shadow: none;
@@ -169,9 +173,11 @@ class Panel(Gtk.ApplicationWindow):
     주기 작업은 self.every() 로 등록 → 닫힐 때 자동 정리 (상시 실행 데몬에서 누수 방지).
     """
 
-    ANCHOR = "right"  # "right" | "center"
+    ANCHOR = "right"  # "right"(우측 상단) | "left"(좌측 상단) | "center"(상단 가운데) | "middle"(화면 정중앙)
     WIDTH = 400
     CSS = ""
+    LAYER = "top"     # "top" | "overlay"
+    DIM = False       # True 면 뒤 화면을 어둡게
 
     def __init__(self, app):
         super().__init__(application=app, decorated=False, resizable=False)
@@ -185,9 +191,14 @@ class Panel(Gtk.ApplicationWindow):
         # 바깥 클릭을 받아 패널을 닫는 투명 전체화면 레이어 (swaync 의 cover-screen 과 같은 방식)
         self.backdrop = Gtk.Window(application=app, decorated=False)
         self.backdrop.add_css_class("backdrop")
+        if self.DIM:
+            self.backdrop.add_css_class("dim")
+        layer = Layer.Layer.OVERLAY if self.LAYER == "overlay" else Layer.Layer.TOP
         Layer.init_for_window(self.backdrop)
         Layer.set_namespace(self.backdrop, "kyulio-backdrop")
-        Layer.set_layer(self.backdrop, Layer.Layer.TOP)
+        Layer.set_layer(self.backdrop, layer)
+        if self.ANCHOR == "middle":
+            Layer.set_exclusive_zone(self.backdrop, -1)  # waybar 위까지 덮음
         Layer.set_keyboard_mode(self.backdrop, Layer.KeyboardMode.NONE)
         for edge in (Layer.Edge.TOP, Layer.Edge.BOTTOM, Layer.Edge.LEFT, Layer.Edge.RIGHT):
             Layer.set_anchor(self.backdrop, edge, True)
@@ -198,13 +209,17 @@ class Panel(Gtk.ApplicationWindow):
 
         Layer.init_for_window(self)
         Layer.set_namespace(self, "kyulio-panel")
-        Layer.set_layer(self, Layer.Layer.TOP)
+        Layer.set_layer(self, layer)
         Layer.set_keyboard_mode(self, Layer.KeyboardMode.EXCLUSIVE)
-        Layer.set_anchor(self, Layer.Edge.TOP, True)
-        Layer.set_margin(self, Layer.Edge.TOP, 8)
+        if self.ANCHOR != "middle":
+            Layer.set_anchor(self, Layer.Edge.TOP, True)
+            Layer.set_margin(self, Layer.Edge.TOP, 8)
         if self.ANCHOR == "right":
             Layer.set_anchor(self, Layer.Edge.RIGHT, True)
             Layer.set_margin(self, Layer.Edge.RIGHT, 8)
+        elif self.ANCHOR == "left":
+            Layer.set_anchor(self, Layer.Edge.LEFT, True)
+            Layer.set_margin(self, Layer.Edge.LEFT, 8)
 
         self.card = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.card.add_css_class("card")

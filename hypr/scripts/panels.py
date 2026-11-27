@@ -2,7 +2,7 @@
 """패널 데몬 — 모든 waybar 패널을 한 프로세스에 상주시켜 버튼 반응을 즉시로.
 
   panels.py            데몬 실행 (hyprland 시작 시 자동)
-  panel.sh <이름>      열기/닫기 토글 (wifi, bluetooth, audio, battery, weather, calendar)
+  panel.sh <이름>      열기/닫기 토글 (wifi, bluetooth, audio, battery, weather, calendar, power)
 
 명령은 $XDG_RUNTIME_DIR/kyulio-panels.fifo 로 받음.
 """
@@ -33,6 +33,7 @@ PANELS = {
     "battery": ("battery-panel.py", "BatteryPanel"),
     "weather": ("weather-panel.py", "WeatherPanel"),
     "calendar": ("calendar-panel.py", "CalendarPanel"),
+    "power": ("power-panel.py", "PowerPanel"),
 }
 
 

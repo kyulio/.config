@@ -51,7 +51,8 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("/usr/bin/python3 /home/kyulio/.config/hypr/scripts/panels.py &")
     hl.exec_cmd("/home/kyulio/.config/hypr/scripts/bluetooth-agent.py &")
     -- 암호창(Polkit) 에이전트 자동 실행
-    hl.exec_cmd("pgrep -x hyprpolkitagent >/dev/null || /usr/lib/hyprpolkitagent/hyprpolkitagent &")
+    -- 패널과 같은 디자인의 비밀번호 창 (hyprpolkitagent 대체, 메모리 ~50MB)
+    hl.exec_cmd("/usr/bin/python3 /home/kyulio/.config/hypr/scripts/polkit-agent.py &")
     -- SDDM PAM으로 열린 KWallet(ksecretd) 자동 잠금 해제
     hl.exec_cmd("/usr/lib/pam_kwallet_init &")
 end)
@@ -212,8 +213,8 @@ hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })
 
 local mainMod = "SUPER"
 
--- 단일 SUPER 키 릴리즈 시 wlogout 실행 (Waybar 전원 버튼 연동)
-hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("pkill -x wlogout || wlogout -b 5 -T 560 -B 560 -L 340 -R 340"), { release = true })
+-- 단일 SUPER 키 릴리즈 시 전원 패널 (Waybar ⭘ 버튼과 동일)
+hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("/home/kyulio/.config/hypr/scripts/panel.sh power"), { release = true })
 -- Alt + F4 단축키로 현재 창 강제 종료
 hl.bind("ALT + F4", hl.dsp.exec_cmd("hyprctl dispatch forcekillactive"))
 

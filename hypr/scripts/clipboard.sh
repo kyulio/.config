@@ -23,9 +23,9 @@ build_rows() {
     done
 }
 
-LIST=$(cliphist list)
+LIST=$(cliphist list | head -n 200)  # 최근 200개만 (전체는 수천 개라 느림)
 
-CHOICE=$(build_rows <<< "$LIST" | rofi -dmenu -show-icons -display-columns 2 -p "" -theme ~/.config/rofi/clipboard.rasi)
+CHOICE=$(build_rows <<< "$LIST" | rofi -dmenu -show-icons -display-columns 2 -p "Clipboard" -theme ~/.config/rofi/clipboard.rasi)
 [ -n "$CHOICE" ] && cliphist decode "${CHOICE%%$'\t'*}" | wl-copy
 
 find "$THUMBS" -type f | while read -r file; do

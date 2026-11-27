@@ -1,114 +1,163 @@
-// Monochrome launcher
+// 앱 런처 — hypr/scripts/panel_base.py 패널과 같은 모노크롬 카드 디자인
 configuration {
     modi:                  "drun,filebrowser,window,run";
     show-icons:            true;
     icon-theme:            "breeze-dark";
-    display-drun:          "";
-    display-run:           "";
-    display-filebrowser:   "";
-    display-window:        "";
+    display-drun:          "Applications";
+    display-run:           "Run";
+    display-filebrowser:   "Files";
+    display-window:        "Windows";
     drun-display-format:   "{name}";
     window-format:         "{w}  {t}";
-    font:                  "Noto Sans CJK KR 12";
+    font:                  "JetBrainsMono Nerd Font Propo,Noto Sans CJK KR 10";
 }
 
-@theme "~/.config/rofi/themes/theme.rasi"
-
 * {
-    background-color:      transparent;
-    text-color:            @main-fg;
+    card-bg:          rgba(8, 8, 8, 82%);
+    card-bd:          rgba(255, 255, 255, 16%);
+    field-bg:         rgba(255, 255, 255, 6%);
+    field-bd:         rgba(255, 255, 255, 14%);
+    row-sel-bg:       rgba(255, 255, 255, 10%);
+    row-sel-bd:       rgba(255, 255, 255, 14%);
+    sep-color:        rgba(255, 255, 255, 10%);
+    fg:               #dddddd;
+    fg-bright:        #ffffff;
+    fg-dim:           #777777;
+
+    background-color: transparent;
+    text-color:       @fg;
 }
 
 window {
-    width:                 620px;
-    location:              center;
-    anchor:                center;
-    border:                1px;
-    border-radius:         10px;
-    border-color:          #ffffff40;
-    background-color:      @main-bg;
+    width:            460px;
+    location:         center;
+    anchor:           center;
+    border:           1px;
+    border-radius:    10px;
+    border-color:     @card-bd;
+    background-color: @card-bg;
 }
 
 mainbox {
-    orientation:           vertical;
-    spacing:               12px;
-    padding:               16px;
-    children:              [ "inputbar", "message", "listview" ];
+    padding:  14px;
+    spacing:  10px;
+    children: [ "header", "inputbar", "message", "textbox-section", "listview" ];
 }
 
-inputbar {
-    spacing:               12px;
-    padding:               12px 16px;
-    border-radius:         8px;
-    background-color:      @select-bg;
-    children:              [ "prompt", "entry" ];
+/* 머리글: 아이콘 + 제목 (패널 hero 와 동일) */
+header {
+    expand:        false;
+    orientation:   horizontal;
+    spacing:       10px;
+    padding:       0 0 10px 0;
+    border:        0 0 1px 0;
+    border-color:  @sep-color;
+    children:      [ "textbox-icon", "prompt" ];
+}
+
+textbox-icon {
+    expand:           false;
+    str:              "󰀻";
+    font:             "JetBrainsMono Nerd Font Propo 19";
+    text-color:       @fg-bright;
+    vertical-align:   0.5;
+    horizontal-align: 0.5;
+    width:            36px;
 }
 
 prompt {
-    text-color:            @main-ex;
-    vertical-align:        0.5;
+    font:           "Noto Sans CJK KR Bold 12";
+    text-color:     @fg-bright;
+    vertical-align: 0.5;
+}
+
+/* 검색창 (패널 entry 와 동일) */
+inputbar {
+    expand:           false;
+    padding:          8px 12px;
+    border:           1px;
+    border-radius:    7px;
+    border-color:     @field-bd;
+    background-color: @field-bg;
+    children:         [ "entry" ];
 }
 
 entry {
-    placeholder:           "Search";
-    placeholder-color:     @main-ex;
-    cursor:                text;
-    vertical-align:        0.5;
+    placeholder:       "Search";
+    placeholder-color: @fg-dim;
+    text-color:        @fg-bright;
+    cursor:            text;
+}
+
+/* 섹션 라벨 (패널 .section 과 동일) */
+textbox-section {
+    expand:     false;
+    str:        "APPLICATIONS";
+    font:       "JetBrainsMono Nerd Font Propo Bold 7.5";
+    text-color: @fg-dim;
+    padding:    2px 2px 0 2px;
 }
 
 listview {
-    columns:               1;
-    lines:                 8;
-    spacing:               2px;
-    cycle:                 true;
-    dynamic:               true;
-    scrollbar:             false;
-    fixed-height:          false;
-    cursor:                "default";
+    border:       0;
+    columns:      1;
+    lines:        8;
+    spacing:      2px;
+    cycle:        true;
+    dynamic:      true;
+    scrollbar:    false;
+    fixed-height: false;
+    cursor:       "default";
 }
 
+/* 행 (패널 .row-btn 과 동일) */
 element {
-    orientation:           horizontal;
-    spacing:               12px;
-    padding:               9px 12px;
-    border-radius:         8px;
-    cursor:                pointer;
+    orientation:   horizontal;
+    spacing:       10px;
+    padding:       8px 10px;
+    border:        1px;
+    border-radius: 8px;
+    border-color:  transparent;
+    cursor:        pointer;
 }
 
+element normal.normal,
+element alternate.normal,
 element normal.urgent,
-element alternate.urgent {
-    text-color:            @main-fg;
-}
-
-element alternate.normal {
-    background-color:      transparent;
+element alternate.urgent,
+element normal.active,
+element alternate.active {
+    background-color: transparent;
+    text-color:       @fg;
 }
 
 element selected.normal,
 element selected.active,
 element selected.urgent {
-    background-color:      #ffffff24;
-    text-color:            #ffffff;
+    background-color: @row-sel-bg;
+    border-color:     @row-sel-bd;
+    text-color:       @fg-bright;
 }
 
 element-icon {
-    size:                  1.5em;
-    cursor:                inherit;
-    vertical-align:        0.5;
+    size:           1.6em;
+    cursor:         inherit;
+    vertical-align: 0.5;
 }
 
 element-text {
-    cursor:                inherit;
-    text-color:            inherit;
-    vertical-align:        0.5;
+    cursor:         inherit;
+    text-color:     inherit;
+    vertical-align: 0.5;
 }
 
 message {
-    padding:               10px 12px;
-    border-radius:         8px;
-    background-color:      @select-bg;
+    border:           0;
+    padding:          8px 12px;
+    border-radius:    8px;
+    background-color: @field-bg;
 }
 
 textbox {
-    text-color:            @main-fg;
+    text-color: @fg;
 }

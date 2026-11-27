@@ -12,7 +12,7 @@
     "custom/power": {
         "format": "⭘",
         "tooltip": false,
-        "on-click": "pkill -x wlogout || wlogout -b 5 -T 560 -B 560 -L 340 -R 340 &"
+        "on-click": "/home/kyulio/.config/hypr/scripts/panel.sh power"
     },
 
     "hyprland/workspaces": {

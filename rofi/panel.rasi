@@ -1,110 +1,26 @@
-// 우측 상단 패널 — swaync 알림센터와 같은 모양 (Wi-Fi / Bluetooth / Audio 메뉴용)
+// 우측 상단 rofi 메뉴 (우클릭용 예전 Wi-Fi/블루투스/오디오, 팬·GPU 메뉴) — 패널과 같은 디자인
+@import "config.rasi"
 
 configuration {
     show-icons: false;
-    font:       "JetBrainsMono Nerd Font Propo,Noto Sans CJK KR 11";
-}
-
-* {
-    background-color: transparent;
-    text-color:       #ffffff;
-
-    panel-bg:   rgba(8, 8, 8, 0.68);
-    panel-bd:   rgba(255, 255, 255, 0.16);
-    card-bg:    rgba(255, 255, 255, 0.06);
-    card-bd:    rgba(255, 255, 255, 0.12);
-    hover-bg:   rgba(255, 255, 255, 0.14);
-    dim-fg:     #888888;
 }
 
 window {
-    location:         north east;
-    anchor:           north east;
-    x-offset:         -8px;
-    y-offset:         38px;          /* waybar(30) + 8 */
-    width:            420px;
-    border:           1px;
-    border-color:     @panel-bd;
-    border-radius:    10px;
-    background-color: @panel-bg;
+    location: north east;
+    anchor:   north east;
+    x-offset: -8px;
+    y-offset: 38px;
+    width:    400px;
 }
 
 mainbox {
-    padding:  12px 14px;
-    spacing:  10px;
-    children: [ "inputbar", "message", "listview" ];
+    children: [ "header", "inputbar", "message", "listview" ];
 }
 
-/* 제목 + 검색창 (알림센터의 "Notifications" 제목 + 위젯 카드 느낌) */
-inputbar {
-    orientation: vertical;
-    spacing:     10px;
-    children:    [ "prompt", "entry" ];
-}
-
-prompt {
-    font:       "Noto Sans CJK KR Bold 15";
-    text-color: #ffffff;
-    padding:    2px 2px 0 2px;
-}
-
-entry {
-    placeholder:       "검색";
-    placeholder-color: @dim-fg;
-    cursor:            text;
-    padding:           8px 12px;
-    border-radius:     8px;
-    background-color:  @card-bg;
-}
-
-message {
-    padding:          8px 12px;
-    border-radius:    8px;
-    background-color: @card-bg;
-}
-
-textbox {
-    text-color: #dddddd;
+textbox-icon {
+    str: "󰒓";
 }
 
 listview {
-    lines:        9;
-    dynamic:      true;
-    fixed-height: false;
-    scrollbar:    false;
-    spacing:      4px;
-    cursor:       default;
-}
-
-element {
-    padding:          10px 12px;
-    border:           1px;
-    border-radius:    8px;
-    border-color:     transparent;
-    background-color: transparent;
-    cursor:           pointer;
-}
-
-element normal.normal,
-element alternate.normal {
-    background-color: transparent;
-    text-color:       #dddddd;
-}
-
-element normal.active,
-element alternate.active {
-    text-color: #ffffff;
-}
-
-element selected.normal,
-element selected.active {
-    background-color: @hover-bg;
-    border-color:     @card-bd;
-    text-color:       #ffffff;
-}
-
-element-text {
-    text-color:     inherit;
-    vertical-align: 0.5;
-    cursor:         inherit;
+    lines: 9;
 }
