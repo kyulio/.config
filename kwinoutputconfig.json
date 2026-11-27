@@ -6,26 +6,17 @@
                 "allowDdcCi": true,
                 "allowSdrSoftwareBrightness": false,
                 "autoBrightnessCurve": [
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0
+                    [
+                        0,
+                        1
+                    ]
                 ],
                 "autoRotation": "InTabletMode",
                 "automaticBrightness": false,
-                "brightness": 0.35,
+                "brightness": 0.55,
                 "colorPowerTradeoff": "PreferEfficiency",
                 "colorProfileSource": "sRGB",
-                "connectorName": "eDP-1",
-                "customModes": [
-                ],
+                "connectorName": "eDP-2",
                 "detectedDdcCi": false,
                 "edidHash": "d4e62f730230006e2c2284e31bb674ae",
                 "edidIdentifier": "CSW 5718 0 0 2024 0",
@@ -36,10 +27,21 @@
                 "iccProfilePath": "",
                 "maxBitsPerColor": 0,
                 "mode": {
-                    "flags": 1,
-                    "height": 1600,
-                    "refreshRate": 165000,
-                    "width": 2560
+                    "cvt": {
+                        "clock": 777322,
+                        "flags": 10,
+                        "hdisplay": 2560,
+                        "hskew": 0,
+                        "hsyncEnd": 2640,
+                        "hsyncStart": 2608,
+                        "htotal": 2720,
+                        "vdisplay": 1600,
+                        "vscan": 0,
+                        "vsyncEnd": 1612,
+                        "vsyncStart": 1606,
+                        "vtotal": 1732
+                    },
+                    "flags": 1
                 },
                 "overscan": 0,
                 "rgbRange": "Automatic",
