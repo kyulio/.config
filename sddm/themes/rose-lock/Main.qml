@@ -86,7 +86,7 @@ Rectangle {
     }
 
     // ── hyprlock 과 동일한 가운데 영역 ──
-    readonly property string propoFont: "JetBrainsMono Nerd Font Propo"
+    readonly property string propoFont: "GeistMono Nerd Font Propo"
 
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
@@ -115,7 +115,7 @@ Rectangle {
         anchors.verticalCenterOffset: 26
         text: "Locked"
         color: "white"
-        font.family: "Noto Sans CJK KR"
+        font.family: "Pretendard"
         font.bold: true
         font.pixelSize: 14
     }

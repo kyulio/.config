@@ -42,7 +42,7 @@ window.backdrop.dim { background: rgba(0, 0, 0, 0.45); }  /* 완전 투명이면
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 10px;
   padding: 14px;
-  font-family: "JetBrainsMono Nerd Font Propo", "Noto Sans CJK KR";
+  font-family: "GeistMono Nerd Font Propo", "Pretendard";
   font-size: 12px;
   color: #dddddd;
 }

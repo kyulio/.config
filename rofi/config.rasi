@@ -9,7 +9,7 @@ configuration {
     display-window:        "Windows";
     drun-display-format:   "{name}";
     window-format:         "{w}  {t}";
-    font:                  "JetBrainsMono Nerd Font Propo,Noto Sans CJK KR 10";
+    font:                  "GeistMono Nerd Font Propo,Pretendard 10";
 }
 
 * {
@@ -58,7 +58,7 @@ header {
 textbox-icon {
     expand:           false;
     str:              "󰀻";
-    font:             "JetBrainsMono Nerd Font Propo 19";
+    font:             "GeistMono Nerd Font Propo 19";
     text-color:       @fg-bright;
     vertical-align:   0.5;
     horizontal-align: 0.5;
@@ -66,7 +66,7 @@ textbox-icon {
 }
 
 prompt {
-    font:           "Noto Sans CJK KR Bold 12";
+    font:           "Pretendard Bold 12";
     text-color:     @fg-bright;
     vertical-align: 0.5;
 }
@@ -93,7 +93,7 @@ entry {
 textbox-section {
     expand:     false;
     str:        "APPLICATIONS";
-    font:       "JetBrainsMono Nerd Font Propo Bold 7.5";
+    font:       "GeistMono Nerd Font Propo Bold 7.5";
     text-color: @fg-dim;
     padding:    2px 2px 0 2px;
 }

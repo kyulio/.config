@@ -1,7 +1,7 @@
 /* 꽉 찬 모노크롬 바 — 기존 블랙/화이트 톤 유지 + Omarchy식 미니멀 레이아웃 */
 
 * {
-    font-family: "JetBrainsMono Nerd Font Propo", "Noto Sans CJK KR";
+    font-family: "GeistMono Nerd Font Propo", "Pretendard";
     font-size: 13px;
     font-weight: 500;
     min-height: 0;
@@ -33,7 +33,7 @@ tooltip label {
 /* ── 워크스페이스: 숫자 + 활성은 󱓻 ── */
 #workspaces button {
     all: initial;
-    font-family: "JetBrainsMono Nerd Font Propo";
+    font-family: "GeistMono Nerd Font Propo";
     font-size: 13px;
     color: #9a9a9a;
     padding: 0 7px;
@@ -69,7 +69,7 @@ tooltip label {
 }
 
 #custom-power { color: #ffffff; padding: 0 10px 0 8px; }
-#clock        { color: #ffffff; font-family: "Noto Sans CJK KR", "JetBrainsMono Nerd Font Propo"; }
+#clock        { color: #ffffff; font-family: "Pretendard", "GeistMono Nerd Font Propo"; }
 #custom-notification { padding: 0 4px 0 10px; }
 
 /* spacer 와 weather 를 같은 폭으로 → 시계가 정중앙 */
@@ -82,7 +82,7 @@ tooltip label {
 #custom-spectrum {
     color: #bbbbbb;
     padding: 0 10px;
-    font-family: "JetBrainsMono Nerd Font Propo";
+    font-family: "GeistMono Nerd Font Propo";
     letter-spacing: -1px;
 }
 #custom-notification.none,
