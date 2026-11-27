@@ -132,3 +132,23 @@ Run with `y` in a terminal to `cd` into the last directory on quit.
 | `,` | Sort menu |
 | `~` | All keybindings |
 | `q` | Quit |
+
+## License
+
+Copyright (C) 2026 kyulio
+
+Licensed under the [GNU General Public License v3.0](LICENSE) (GPL-3.0-or-later).
+
+### Third-party
+
+These parts come from other projects and keep their original licenses
+(all GPL-compatible unless noted):
+
+| Path | Source | License |
+|---|---|---|
+| `rofi/styles/`, `rofi/steam/`, `rofi/assets/`, `rofi/themeselect.rasi`, `rofi/quickapps.rasi` | [HyDE](https://github.com/HyDE-Project/HyDE) | GPL-3.0 |
+| `yazi/plugins/*` | [yazi-rs/plugins](https://github.com/yazi-rs/plugins) | MIT (see each `LICENSE`) |
+| `nvim/` | [NvChad starter](https://github.com/NvChad/starter) | Unlicense |
+| `cava/shaders/`, `cava/themes/` | [cava](https://github.com/karlstav/cava) | MIT |
+| waybar layout | inspired by [Omarchy](https://github.com/basecamp/omarchy) | MIT |
+| `sddm/themes/rose-lock/background*.jpg` | Photo by Gian D. on [Unsplash](https://unsplash.com) | [Unsplash License](https://unsplash.com/license) — **not** covered by the GPL |
