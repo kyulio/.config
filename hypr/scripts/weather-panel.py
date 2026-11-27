@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""날씨 패널 (시계 아래 가운데). 다른 패널과 같은 레이아웃.
+"""날씨 패널 (우측 상단). 다른 패널과 같은 레이아웃.
 
 캐시를 즉시 그리고, 오래됐으면 백그라운드에서 새로 받아 갱신.
 """
@@ -31,8 +31,6 @@ def to_24h(t):
 
 
 class WeatherPanel(Panel):
-    ANCHOR = "center"
-
     def __init__(self, app):
         super().__init__(app)
         card = self.card
