@@ -71,9 +71,10 @@ Rectangle {
         }
     }
 
+    // 배경: hyprlock 과 같은 블러·밝기 (background-blur.jpg 는 미리 처리한 이미지)
     Image {
         anchors.fill: parent
-        source: "background.jpg"
+        source: "background-blur.jpg"
         fillMode: Image.PreserveAspectCrop
         asynchronous: false
     }
