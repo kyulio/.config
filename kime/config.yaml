@@ -1,0 +1,26 @@
+engine:
+  # 한국어 2벌식 자판 설정
+  input_key_groups:
+    - name: default
+      keymap: 2beolsik
+
+  # 한영 전환 단축키 설정
+  global_hotkeys:
+    # 오른쪽 Alt 키 (또는 한/영 키)
+    Hangul:
+      behavior: !Toggle
+        - Hangul
+        - Latin
+      result: Consume
+    # 오른쪽 Alt 키가 AltR로 인식될 경우를 위해 추가
+    AltR:
+      behavior: !Toggle
+        - Hangul
+        - Latin
+      result: Consume
+    # Shift + Space 조합
+    S-Space:
+      behavior: !Toggle
+        - Hangul
+        - Latin
+      result: Consume

@@ -1,0 +1,22 @@
+@import "config.rasi"
+
+window {
+    width:                 760px;
+}
+
+listview {
+    lines:                 9;
+    fixed-height:          false;
+}
+
+element {
+    padding:               5px 12px;
+}
+
+element-icon {
+    size:                  2.4em;
+}
+
+entry {
+    placeholder:           "Search clipboard";
+}

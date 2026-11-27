@@ -1,0 +1,116 @@
+/* 꽉 찬 모노크롬 바 — 기존 블랙/화이트 톤 유지 + Omarchy식 미니멀 레이아웃 */
+
+* {
+    font-family: "JetBrainsMono Nerd Font Propo", "Noto Sans CJK KR";
+    font-size: 13px;
+    font-weight: 500;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+window#waybar {
+    background: rgba(0, 0, 0, 0.82);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    color: #d8d8d8;
+}
+
+.modules-left  { margin-left: 6px; }
+.modules-right { margin-right: 10px; }
+
+tooltip {
+    background: rgba(0, 0, 0, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+tooltip label {
+    color: #ffffff;
+    padding: 4px 6px;
+}
+
+/* ── 워크스페이스: 숫자 + 활성은 󱓻 ── */
+#workspaces button {
+    all: initial;
+    font-family: "JetBrainsMono Nerd Font Propo";
+    font-size: 13px;
+    color: #9a9a9a;
+    padding: 0 7px;
+    margin: 5px 1px;
+    min-width: 10px;
+}
+
+#workspaces button.empty  { color: #4a4a4a; }
+#workspaces button:hover  { color: #ffffff; }
+#workspaces button.active {
+    color: #000000;
+    background: #ffffff;
+    border-radius: 6px;
+    font-weight: 700;
+}
+#workspaces button.urgent { color: #000000; background: #d0d0d0; border-radius: 6px; }
+
+/* ── 공통 모듈 ── */
+#custom-power,
+#custom-expand-icon,
+#tray,
+#bluetooth,
+#network,
+#pulseaudio,
+#backlight,
+#cpu,
+#battery,
+#clock,
+#custom-notification {
+    color: #d8d8d8;
+    background: transparent;
+    padding: 0 8px;
+    min-width: 12px;
+}
+
+#custom-power { color: #ffffff; padding: 0 10px 0 8px; }
+#clock        { color: #ffffff; font-family: "Noto Sans CJK KR", "JetBrainsMono Nerd Font Propo"; }
+#custom-notification { padding: 0 4px 0 10px; }
+
+#custom-weather { color: #d8d8d8; padding: 0 10px; }
+#custom-weather:hover { color: #ffffff; }
+#custom-weather.unavailable { padding: 0; }
+
+#custom-spectrum {
+    color: #bbbbbb;
+    padding: 0 10px;
+    font-family: "JetBrainsMono Nerd Font Propo";
+    letter-spacing: -1px;
+}
+#custom-notification.none,
+#custom-notification.inhibited-none { color: #6a6a6a; }
+
+#custom-power:hover,
+#custom-expand-icon:hover,
+#bluetooth:hover,
+#network:hover,
+#pulseaudio:hover,
+#backlight:hover,
+#cpu:hover,
+#battery:hover,
+#clock:hover,
+#custom-notification:hover {
+    color: #ffffff;
+}
+
+/* ── 상태 ── */
+#custom-notification.notification,
+#custom-notification.dnd-notification { color: #ffffff; }
+
+#custom-notification.dnd-none,
+#custom-notification.dnd-notification,
+#bluetooth.disabled,
+#bluetooth.off,
+#network.disconnected,
+#pulseaudio.muted { color: #5a5a5a; }
+
+#battery.warning:not(.charging)  { color: #ffffff; }
+#battery.critical:not(.charging) { color: #000000; background: #e0e0e0; }
+
+#tray > .needs-attention { background: rgba(255, 255, 255, 0.16); border-radius: 6px; }

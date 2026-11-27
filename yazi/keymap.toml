@@ -1,0 +1,5 @@
+[[mgr.prepend_keymap]]
+on  = [ "c", "d" ]
+run = "shell -- ripdrag -x %s"
+desc = "Drag and drop selected"
+

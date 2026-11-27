@@ -1,0 +1,25 @@
+# 화이트리스트: 기본은 전부 무시, 데스크톱 설정만 포함
+/*
+!/.gitignore
+!/hypr/
+!/waybar/
+!/rofi/
+!/swaync/
+!/kitty/
+!/nvim/
+!/wlogout/
+!/colors/
+!/gtk-3.0/
+!/gtk-4.0/
+!/kime/
+!/btop/
+!/yazi/
+!/lazygit/
+!/mpv/
+!/cava/
+!/mimeapps.list
+!/user-dirs.dirs
+
+__pycache__/
+/hypr/scripts/backup/
+/waybar/backup/

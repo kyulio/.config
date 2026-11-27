@@ -1,0 +1,35 @@
+[Default Applications]
+x-scheme-handler/discord-1216669957799018608=discord-1216669957799018608.desktop
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
+x-scheme-handler/chrome=firefox.desktop
+text/html=firefox.desktop
+application/x-extension-htm=firefox.desktop
+application/x-extension-html=firefox.desktop
+application/x-extension-shtml=firefox.desktop
+application/xhtml+xml=firefox.desktop
+application/x-extension-xhtml=firefox.desktop
+application/x-extension-xht=firefox.desktop
+x-scheme-handler/discord=vesktop.desktop
+x-scheme-handler/discord-1340757629622026270=discord-1340757629622026270.desktop
+x-scheme-handler/jetbrains=jetbrainsd.desktop
+x-scheme-handler/termius=termius.desktop
+x-scheme-handler/ssh=kitty-open.desktop
+x-scheme-handler/discord-514489760568573952=discord-514489760568573952.desktop
+x-scheme-handler/modlist=modlist.desktop
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop
+x-scheme-handler/discord-537047684993777686=discord-537047684993777686.desktop
+x-scheme-handler/t3code=com.t3tools.T3Code.desktop
+
+[Added Associations]
+x-scheme-handler/http=firefox.desktop;
+x-scheme-handler/https=firefox.desktop;
+x-scheme-handler/chrome=firefox.desktop;
+text/html=firefox.desktop;
+application/x-extension-htm=firefox.desktop;
+application/x-extension-html=firefox.desktop;
+application/x-extension-shtml=firefox.desktop;
+application/xhtml+xml=firefox.desktop;
+application/x-extension-xhtml=firefox.desktop;
+application/x-extension-xht=firefox.desktop;
+application/zip=appimagekit_dcd9ae54b4027bdb9f5953484aea71d9-osu_.desktop;

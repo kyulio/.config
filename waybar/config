@@ -1,0 +1,168 @@
+{
+    // 꽉 찬 바 + Omarchy 스타일(아이콘 위주, 숫자 워크스페이스, 트레이 서랍)
+    "reload_style_on_change": true,
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "spacing": 0,
+    "modules-left": ["custom/power", "hyprland/workspaces", "custom/spectrum"],
+    "modules-center": ["clock", "custom/weather"],
+    "modules-right": ["group/tray-expander", "bluetooth", "network", "pulseaudio", "backlight", "cpu", "battery", "custom/notification"],
+
+    "custom/power": {
+        "format": "⭘",
+        "tooltip": false,
+        "on-click": "pkill -x wlogout || wlogout -b 5 -T 560 -B 560 -L 340 -R 340 &"
+    },
+
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "warp-on-scroll": false,
+        "on-click": "activate",
+        "format": "{icon}",
+        "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+            "10": "0"
+        },
+        "persistent-workspaces": { "*": 5 },
+        "cursor": true
+    },
+
+    "clock": {
+        "format": "{:%a %m/%d  %H:%M}",
+        "on-click": "/home/kyulio/.config/hypr/scripts/calendar-popup.py &",
+        "tooltip": false
+    },
+
+    "custom/weather": {
+        "exec": "/home/kyulio/.config/hypr/scripts/weather.py --waybar",
+        "return-type": "json",
+        "interval": 600,
+        "on-click": "/home/kyulio/.config/hypr/scripts/weather-panel.py &"
+    },
+
+    "custom/spectrum": {
+        "exec": "/home/kyulio/.config/hypr/scripts/spectrum.sh",
+        "format": "{}",
+        "tooltip": false,
+        "escape": true
+    },
+
+    "custom/notification": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+            "none": "󰂚",
+            "notification": "󰂞",
+            "dnd-none": "󰂛",
+            "dnd-notification": "󰂛",
+            "inhibited-none": "󰂚",
+            "inhibited-notification": "󰂞",
+            "dnd-inhibited-none": "󰂛",
+            "dnd-inhibited-notification": "󰂛"
+        },
+        "return-type": "json",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
+    },
+
+    "group/tray-expander": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 400,
+            "children-class": "tray-group-item"
+        },
+        "modules": ["custom/expand-icon", "tray"]
+    },
+
+    "custom/expand-icon": {
+        "format": "",
+        "tooltip": false
+    },
+
+    "tray": {
+        "icon-size": 14,
+        "spacing": 12
+    },
+
+    "bluetooth": {
+        "format": "󰂯",
+        "format-off": "󰂲",
+        "format-disabled": "󰂲",
+        "format-connected": "󰂱",
+        "format-no-controller": "",
+        "tooltip-format": "Bluetooth: {status}",
+        "tooltip-format-connected": "{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}",
+        "on-click": "/home/kyulio/.config/hypr/scripts/bluetooth-panel.py &",
+        "on-click-right": "/home/kyulio/.config/hypr/scripts/bluetooth-menu.sh &"
+    },
+
+    "network": {
+        "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+        "format-wifi": "{icon}",
+        "format-ethernet": "󰀂",
+        "format-linked": "󰤫",
+        "format-disconnected": "󰤮",
+        "tooltip-format-wifi": "{essid}  {signalStrength}%  ({frequency} GHz)",
+        "tooltip-format-ethernet": "Ethernet  {ipaddr}",
+        "tooltip-format-disconnected": "Disconnected",
+        "interval": 3,
+        "on-click": "/home/kyulio/.config/hypr/scripts/wifi-panel.py &",
+        "on-click-right": "/home/kyulio/.config/hypr/scripts/wifi-menu.sh &"
+    },
+
+    "pulseaudio": {
+        "format": "{icon}",
+        "format-muted": "󰝟",
+        "format-bluetooth": "󰂰",
+        "format-bluetooth-muted": "󰝟",
+        "format-icons": {
+            "headphone": "󰋋",
+            "headset": "󰋎",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "scroll-step": 5,
+        "tooltip-format": "{desc}  {volume}%",
+        "on-click": "/home/kyulio/.config/hypr/scripts/audio-panel.py &",
+        "on-click-middle": "swaync-client -t -sw",
+        "on-click-right": "pkill -x pavucontrol || env GTK_THEME=Adwaita:dark pavucontrol &"
+    },
+
+    "backlight": {
+        "format": "{icon}",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "tooltip-format": "밝기 {percent}%",
+        "on-click": "swaync-client -t -sw"
+    },
+
+    "cpu": {
+        "interval": 5,
+        "format": "󰍛",
+        "tooltip-format": "CPU {usage}%",
+        "on-click": "kitty -e btop &"
+    },
+
+    "battery": {
+        "states": { "warning": 30, "critical": 15 },
+        "format": "{icon}  {capacity}%",
+        "format-charging": "󰂄  {capacity}%",
+        "format-plugged": "󰚥  {capacity}%",
+        "format-full": "󰁹  {capacity}%",
+        "format-icons": ["󰁺", "󰁼", "󰁾", "󰂀", "󰁹"],
+        "tooltip-format": "{timeTo}  ({power:.1f}W)",
+        "interval": 10,
+        "on-click": "/home/kyulio/.config/hypr/scripts/battery-panel.py &"
+    }
+}
