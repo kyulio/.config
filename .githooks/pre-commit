@@ -1,0 +1,29 @@
+#!/bin/bash
+# 공개 저장소 보호: 비밀정보·개인정보로 보이는 파일이 커밋되면 막음.
+# 정말 올려도 되는 경우에만:  git commit --no-verify
+set -u
+
+# 1) 파일 이름으로 차단
+NAME_RE='(\.key|\.pem|\.p12|\.pfx|\.kdbx|\.rk)$|(^|/)(id_rsa|id_ed25519)|reginfo|hosts\.yml$|service\.json$|(^|/)\.env$|cookies|recent[^/]*\.xml$|trusted[^/]*\.xml$|statistics[^/]*\.xml$|(^|/)unity3d/|vlc-qt-interface\.conf$|QtProject\.conf$|bluedevilglobalrc$'
+
+# 2) 내용으로 차단 (토큰·키·MAC 주소 등)
+CONTENT_RE='ghp_[A-Za-z0-9]{20,}|gho_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|sk-(ant-|proj-)?[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|AIza[0-9A-Za-z_-]{30,}|xox[abp]-[A-Za-z0-9-]{10,}|BEGIN [A-Z ]*PRIVATE KEY|"(api_?key|apiKey|access_?token|secret|password)"[[:space:]]*:[[:space:]]*"[^"]{8,}"|([0-9A-F]{2}:){5}[0-9A-F]{2}|CookieId='
+
+fail=0
+while IFS= read -r -d '' f; do
+    [ "$f" = ".githooks/pre-commit" ] && continue  # 규칙 자체는 검사 제외
+    if [[ "$f" =~ $NAME_RE ]]; then
+        echo "✗ blocked (file name): $f"; fail=1; continue
+    fi
+    if git show ":$f" 2>/dev/null | grep -IqE "$CONTENT_RE"; then
+        echo "✗ blocked (looks like a secret / device id): $f"
+        git show ":$f" | grep -nIE "$CONTENT_RE" | head -3 | sed -E 's/(.{0,60}).*/    \1…/'
+        fail=1
+    fi
+done < <(git diff --cached --name-only -z --diff-filter=ACMR)
+
+if [ $fail -ne 0 ]; then
+    echo
+    echo "Commit blocked: public repo. Add these to .gitignore, or use --no-verify if they are safe."
+    exit 1
+fi
