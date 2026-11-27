@@ -4,6 +4,26 @@ Arch Linux · Hyprland · waybar · monochrome.
 
 `SUPER` = Windows key.
 
+## Important
+
+- **Public repo.** A pre-commit hook (`.githooks/pre-commit`) blocks keys, tokens,
+  license files and device IDs. After cloning, enable it:
+  `git config core.hooksPath .githooks`. Never commit with `--no-verify` unless you are sure.
+- **`.gitignore` is allow-by-default.** Everything is tracked except what it lists —
+  add new apps' secrets / caches there first.
+- **Popups are one daemon.** `hypr/scripts/panels.py` hosts the Wi-Fi, Bluetooth, Sound,
+  Battery, Weather, Calendar and Power panels; waybar calls `panel.sh <name>`.
+  It starts with Hyprland and restarts itself after 20 s idle to free memory.
+- **Password dialogs** come from `hypr/scripts/polkit-agent.py` (replaces hyprpolkitagent).
+  If it breaks: `pkill -f polkit-agent.py; /usr/lib/hyprpolkitagent/hyprpolkitagent &`.
+- **SDDM theme** lives here but SDDM reads the system copy. After editing:
+  `sudo cp ~/.config/sddm/themes/rose-lock/{Main.qml,background-blur.jpg} /usr/share/sddm/themes/rose-lock/`
+- **Fonts:** `otf-geist-mono-nerd` (repo) and `otf-pretendard` (AUR). Defaults are set in
+  `fontconfig/fonts.conf`.
+- **Optional:** `cava` for the waybar audio spectrum. Weather uses wttr.in (IP location).
+- **KDE Plasma** is kept as a fallback session — pick it from the SDDM session selector
+  if Hyprland fails.
+
 ## Hyprland
 
 ### Apps

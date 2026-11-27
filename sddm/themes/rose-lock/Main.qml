@@ -283,8 +283,8 @@ Rectangle {
         spacing: 20
         Repeater {
             model: [
-                { glyph: "\u{f0709}", action: "suspend" },
-                { glyph: "\u{f0450}", action: "reboot" },
+                { glyph: "\u{f04b2}", action: "suspend" },
+                { glyph: "\u{f0709}", action: "reboot" },
                 { glyph: "\u{f0425}", action: "powerOff" }
             ]
             Text {
