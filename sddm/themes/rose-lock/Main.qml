@@ -71,9 +71,10 @@ Rectangle {
         }
     }
 
+    // 배경: hyprlock 과 같은 블러·밝기 (background-blur.jpg 는 미리 처리한 이미지)
     Image {
         anchors.fill: parent
-        source: "background.jpg"
+        source: "background-blur.jpg"
         fillMode: Image.PreserveAspectCrop
         asynchronous: false
     }
@@ -84,25 +85,58 @@ Rectangle {
         onClicked: password.forceActiveFocus()
     }
 
+    // ── hyprlock 과 동일한 가운데 영역 ──
+    readonly property string propoFont: "JetBrainsMono Nerd Font Propo"
+
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
-        anchors.verticalCenterOffset: -150
+        anchors.verticalCenterOffset: -230
         text: Qt.formatTime(root.now, "HH:mm")
-        color: Qt.rgba(1, 1, 1, 0.9)
-        font.family: root.monoFont
-        font.bold: true
-        font.pixelSize: 80
+        color: Qt.rgba(1, 1, 1, 0.95)
+        font.family: root.propoFont
+        font.weight: Font.Light
+        font.pixelSize: 96
     }
 
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
-        anchors.verticalCenterOffset: -80
-        text: Qt.locale("en_US").toString(root.now, "dddd, dd MMMM yyyy")
-        color: Qt.rgba(200 / 255, 200 / 255, 200 / 255, 0.7)
-        font.family: root.monoFont
-        font.pixelSize: 18
+        anchors.verticalCenterOffset: -140
+        text: Qt.locale("en_US").toString(root.now, "dddd · dd MMMM").toUpperCase()
+        color: "#888888"
+        font.family: root.propoFont
+        font.pixelSize: 13
+    }
+
+    Text {
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenterOffset: 26
+        text: "Locked"
+        color: "white"
+        font.family: "Noto Sans CJK KR"
+        font.bold: true
+        font.pixelSize: 14
+    }
+
+    Text {
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenterOffset: 48
+        text: root.currentUser().toUpperCase()
+        color: "#888888"
+        font.family: root.propoFont
+        font.pixelSize: 9
+    }
+
+    Rectangle {
+        width: 320
+        height: 1
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenterOffset: 68
+        color: Qt.rgba(1, 1, 1, 0.10)
     }
 
     ListModel {
@@ -125,21 +159,21 @@ Rectangle {
             NumberAnimation { target: field; property: "shakeOffset"; to: 0; duration: 60 }
         }
 
-        width: 250
-        height: 50
+        width: 320
+        height: 40
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
-        anchors.verticalCenterOffset: 50
+        anchors.verticalCenterOffset: 110
         anchors.horizontalCenterOffset: shakeOffset
-        radius: 10
-        color: Qt.rgba(0, 0, 0, 0.5)
-        border.width: 2
-        border.color: root.failed ? "#cc2222" : (root.busy ? Qt.rgba(1, 1, 1, 0.6) : Qt.rgba(1, 1, 1, 0.2))
+        radius: 7
+        color: Qt.rgba(1, 1, 1, 0.06)
+        border.width: 1
+        border.color: root.failed ? Qt.rgba(1, 1, 1, 0.70) : (root.busy ? Qt.rgba(1, 1, 1, 0.45) : Qt.rgba(1, 1, 1, 0.14))
 
         TextInput {
             id: password
             anchors.fill: parent
-            anchors.margins: 12
+            anchors.margins: 10
             echoMode: TextInput.Password
             color: "transparent"
             selectionColor: "transparent"
@@ -151,7 +185,7 @@ Rectangle {
             onTextChanged: {
                 if (text.length > 0)
                     root.failed = false
-                var wanted = Math.min(text.length, 14)
+                var wanted = Math.min(text.length, 20)
                 while (dots.count < wanted)
                     dots.append({})
                 while (dots.count > wanted)
@@ -164,25 +198,24 @@ Rectangle {
         Text {
             anchors.centerIn: parent
             visible: password.length === 0
-            text: root.failed ? "Authentication failed" : "Enter Password..."
-            color: root.failed ? "#cc2222" : Qt.rgba(1, 1, 1, 0.55)
-            font.family: root.monoFont
-            font.italic: true
-            font.pixelSize: 14
+            text: root.failed ? "Incorrect password" : "Password"
+            color: root.failed ? Qt.rgba(1, 1, 1, 0.70) : "#777777"
+            font.family: root.propoFont
+            font.pixelSize: 13
         }
 
         Row {
             anchors.centerIn: parent
-            spacing: 4
+            spacing: 5
             move: Transition {
                 NumberAnimation { property: "x"; duration: 90; easing.type: Easing.OutQuad }
             }
             Repeater {
                 model: dots
                 Rectangle {
-                    width: 12
-                    height: 12
-                    radius: 6
+                    width: 9
+                    height: 9
+                    radius: 4.5
                     color: "white"
                     scale: 0.3
                     opacity: 0
