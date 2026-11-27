@@ -9,8 +9,8 @@ Arch Linux · Hyprland · waybar · monochrome.
 - **Public repo.** A pre-commit hook (`.githooks/pre-commit`) blocks keys, tokens,
   license files and device IDs. After cloning, enable it:
   `git config core.hooksPath .githooks`. Never commit with `--no-verify` unless you are sure.
-- **`.gitignore` is allow-by-default.** Everything is tracked except what it lists —
-  add new apps' secrets / caches there first.
+- **`.gitignore` is an allowlist.** Nothing is tracked unless listed — to back up a new
+  config, add `!/name/` (or `!/file`) to `.gitignore`.
 - **Popups are one daemon.** `hypr/scripts/panels.py` hosts the Wi-Fi, Bluetooth, Sound,
   Battery, Weather, Calendar and Power panels; waybar calls `panel.sh <name>`.
   It starts with Hyprland and restarts itself after 20 s idle to free memory.

@@ -1,44 +1,101 @@
-# ~/.config 백업 — 기본은 전부 포함, 아래(비밀정보·캐시·앱 데이터)만 제외
+# ── 화이트리스트: 기본은 전부 무시, 올릴 것만 그때그때 추가 ──
+# 새 설정을 백업하려면 아래에  !/폴더명/  (파일이면 !/파일명) 한 줄 추가
 
-# ── 비밀정보 (토큰·키·비밀번호·계정) ──
-/gh/
-/antigravity/
-/kdeconnect/
-/pulse/
-/libaccounts-glib/
-/opencode/service.json
-/opencode/*.rea.backup*
-/obs-studio/plugin_config/obs-websocket/
-/obs-studio/basic/profiles/*/service.json
-/Vencord/settings/settings.json
+/*
 
-# ── 브라우저 / Electron 앱 데이터 (프로필·쿠키·캐시) ──
-/discord/
-/vesktop/
-/fluxer/
-/tetrio-desktop/
-/t3code-v2/
-/Antigravity/
-/Antigravity IDE/
-/Token Monitor/
-/Termius/
-/google-chrome/
-/mozilla/
-/zen/
-/naver-whale/
-/net.imput.helium/
-/Vencord/dist/
+# 저장소 자체
+!/.gitignore
+!/.githooks/
+!/README.md
+!/LICENSE
 
-# ── 상태·캐시·로그 ──
-/session/
-/dconf/
+# 설정
+!/baloofilerc
+!/btop/
+!/cava/
+!/discord-flags.conf
+!/discoverrc
+!/environment.d/
+!/fontconfig/
+!/ghidra/
+!/gtk-3.0/
+!/gtk-4.0/
+!/gtkrc
+!/gtkrc-2.0
+!/hypr/
+!/JetBrains/
+!/kactivitymanagerd-statsrc
+!/kactivitymanagerdrc
+!/kconf_updaterc
+!/KDE/
+!/kded5rc
+!/kded6rc
+!/kdedefaults/
+!/kdeglobals
+!/kglobalshortcutsrc
+!/kime/
+!/kitty/
+!/Kitware/
+!/kritadisplayrc
+!/kritarc
+!/ksmserverrc
+!/ktimezonedrc
+!/kwalletrc
+!/kwinoutputconfig.json
+!/kwinrc
+!/kwinrulesrc
+!/lazygit/
+!/mimeapps.list
+!/mpv/
+!/nvim/
+!/obs-studio/
+!/opencode/
+!/OpenTabletDriver/
+!/pavucontrol.ini
+!/pipeasio/
+!/plasma-localerc
+!/plasma-org.kde.plasma.desktop-appletsrc
+!/plasmanotifyrc
+!/plasmashellrc
+!/powermanagementprofilesrc
+!/pupgui/
+!/REAPER/
+!/rofi/
+!/sddm/
+!/spectaclerc
+!/swaync/
+!/systemd/
+!/Thunar/
+!/tokscale/
+!/tosu/
+!/Trolltech.conf
+!/user-dirs.dirs
+!/user-dirs.locale
+!/Vencord/
+!/vlc/
+!/waybar/
+!/xfce4/
+!/xsettingsd/
+!/yazi/
+
+# ── 허용한 폴더 안에서도 빼는 것 (비밀정보·개인정보·캐시) ──
+/opencode/*
+!/opencode/opencode.json
+!/opencode/opencode.jsonc
+!/opencode/package.json
+!/opencode/cli.json
 /tokscale/*
 !/tokscale/settings.json
-/OpenTabletDriver/Logs/
+/obs-studio/plugin_config/obs-websocket/
+/obs-studio/basic/profiles/*/service.json
+/obs-studio/basic/profiles/*/basic.ini
 /obs-studio/logs/
 /obs-studio/crashes/
 /obs-studio/updates/
 /obs-studio/profiler_data/
+/Vencord/dist/
+/Vencord/settings/settings.json
+/OpenTabletDriver/Logs/
 /ghidra/**/osgi/
 /ghidra/**/symbols/
 /JetBrains/**/event-log-metadata/
@@ -46,16 +103,27 @@
 /JetBrains/**/tasks/
 /JetBrains/**/ssl/
 /JetBrains/**/*.db
+/JetBrains/**/*.vmoptions
+/JetBrains/**/options/recentSolutions*.xml
+/JetBrains/**/options/*window.state*.xml
+/JetBrains/**/options/other.xml
+/JetBrains/**/options/trusted*.xml
+/JetBrains/**/options/*statistics*.xml
+/JetBrains/**/resharper-host/UsageStatistics2/
+/JetBrains/**/resharper-host/event-log-state.json
+/JetBrains/**/resharper-host/processes/
 /REAPER/Data/
 /REAPER/MetadataCaches/
-/REAPER/reaper-*.ini.bak
-/unity3d/**/Analytics/
-/unity3d/**/*.log
-/hypr_backup_*/
+/REAPER/ColorThemes/Default_*
+/REAPER/Scripts/Cockos/
+/REAPER/ReaPack/registry.db
+/REAPER/reaper-reginfo*.ini
+/vlc/vlc-qt-interface.conf
+/kime/*.log
 /hypr/scripts/backup/
 /waybar/backup/
 
-# ── 공통 ──
+# ── 어디서든 빼는 것 ──
 node_modules/
 __pycache__/
 Cache/
@@ -66,40 +134,13 @@ Crashpad/
 *.sqlite
 *.sqlite-*
 *.bak
-/REAPER/ColorThemes/Default_*
-/REAPER/Scripts/Cockos/
-/JetBrains/**/*.vmoptions
-
-# ── 공개 저장소에 올리면 안 되는 것 (라이선스·최근 기록·상태·로그) ──
 *.key
-/JetBrains/**/options/recentSolutions*.xml
-/JetBrains/**/options/*window.state*.xml
-/JetBrains/**/resharper-host/UsageStatistics2/
-/JetBrains/**/resharper-host/event-log-state.json
-/csharp.history
-/kime/*.log
-/autostart/mimeinfo.cache
-/net.golbin.hop/.window-state.json
-/REAPER/ReaPack/registry.db
-
-# ── 개인정보: 등록 정보·기기 ID·MAC·최근 파일 ──
-/REAPER/reaper-reginfo*.ini
-/unity3d/
-/obs-studio/basic/profiles/*/basic.ini
-/vlc/vlc-qt-interface.conf
-/QtProject.conf
-/bluedevilglobalrc
-/JetBrains/**/options/other.xml
-/JetBrains/**/options/trusted*.xml
-/JetBrains/**/options/*statistics*.xml
-/JetBrains/**/resharper-host/processes/
-# 일반적인 비밀정보 패턴
 *.pem
 *.p12
 *.pfx
 *.env
-!/tosu/tosu.env
 *secret*
 *token*
 id_rsa*
 id_ed25519*
+!/tosu/tosu.env
