@@ -146,7 +146,6 @@ These parts come from other projects and keep their original licenses
 
 | Path | Source | License |
 |---|---|---|
-| `rofi/styles/`, `rofi/steam/`, `rofi/assets/`, `rofi/themeselect.rasi`, `rofi/quickapps.rasi` | [HyDE](https://github.com/HyDE-Project/HyDE) | GPL-3.0 |
 | `yazi/plugins/*` | [yazi-rs/plugins](https://github.com/yazi-rs/plugins) | MIT (see each `LICENSE`) |
 | `nvim/` | [NvChad starter](https://github.com/NvChad/starter) | Unlicense |
 | `cava/shaders/`, `cava/themes/` | [cava](https://github.com/karlstav/cava) | MIT |
