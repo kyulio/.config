@@ -33,7 +33,7 @@ class CalendarPanel(Panel):
         head = Gtk.Box(spacing=10)
         card.append(head)
         head.append(label(ICON_CAL, "hero-icon", xalign=0.5))
-        title_btn = Gtk.Button(focusable=False, hexpand=True, tooltip_text="오늘로")
+        title_btn = Gtk.Button(focusable=False, hexpand=True, tooltip_text="Today")
         title_btn.add_css_class("title-btn")
         title_btn.connect("clicked", lambda *_: self.go_today())
         titles = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, valign=Gtk.Align.CENTER)
@@ -83,7 +83,7 @@ class CalendarPanel(Panel):
     def render(self):
         today = datetime.date.today()
         first = datetime.date(self.year, self.month, 1)
-        self.hero_name.set_label(f"{self.year}년 {self.month}월")
+        self.hero_name.set_label(first.strftime("%B %Y"))
         start = first - datetime.timedelta(days=(first.weekday() + 1) % 7)
         for i, cell in enumerate(self.cells):
             day = start + datetime.timedelta(days=i)

@@ -44,7 +44,7 @@ class BluetoothPanel(Panel):
         self.hero_sub = label("", "hero-sub")
         titles.append(self.hero_sub)
         self.scan_btn = Gtk.Button(label=ICON_SCAN, focusable=False, valign=Gtk.Align.CENTER,
-                                   tooltip_text="주변 기기 검색")
+                                   tooltip_text="Scan for devices")
         self.scan_btn.add_css_class("icon-btn")
         self.scan_btn.connect("clicked", lambda *_: self.toggle_scan())
         head.append(self.scan_btn)
@@ -154,7 +154,7 @@ class BluetoothPanel(Panel):
         while (c := self.body.get_first_child()) is not None:
             self.body.remove(c)
         if not powered:
-            self.body.append(label("블루투스가 꺼져 있어요", "row-dim", margin_top=6, margin_bottom=6))
+            self.body.append(label("Bluetooth is off", "row-dim", margin_top=6, margin_bottom=6))
             return
         for title, items in (("CONNECTED", connected), ("PAIRED DEVICES", paired),
                              ("NEARBY DEVICES", nearby)):
@@ -163,9 +163,9 @@ class BluetoothPanel(Panel):
                 for path, dev in sorted(items, key=lambda d: d[1].get("Alias", "").lower()):
                     self.body.append(self.row(path, dev))
         if not (connected or paired or nearby):
-            self.body.append(label("기기가 없어요. 검색 버튼을 눌러보세요", "row-dim", margin_top=6))
+            self.body.append(label("No devices. Press scan to search.", "row-dim", margin_top=6))
         if self.scanning and not nearby:
-            self.body.append(label("NEARBY DEVICES · 검색 중…", "section"))
+            self.body.append(label("NEARBY DEVICES · SCANNING…", "section"))
 
     def row(self, path, dev):
         btn = Gtk.Button(focusable=False)
@@ -177,13 +177,13 @@ class BluetoothPanel(Panel):
         names = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, hexpand=True, valign=Gtk.Align.CENTER)
         names.append(label(dev.get("Alias") or dev.get("Name") or dev.get("Address"), "row-name", ellipsize=3))
         if path in self.busy:
-            sub = "연결 중…"
+            sub = "Connecting…"
         elif dev.get("Connected"):
             sub = "Connected"
         elif dev.get("Paired"):
-            sub = "클릭해서 연결"
+            sub = "Click to connect"
         else:
-            sub = "클릭해서 페어링"
+            sub = "Click to pair"
         names.append(label(sub, "row-sub"))
         box.append(names)
         if dev.get("battery") is not None:
@@ -194,7 +194,7 @@ class BluetoothPanel(Panel):
             forget = Gtk.GestureClick(button=3)
             forget.connect("pressed", lambda *_: self.forget(path, dev))
             btn.add_controller(forget)
-            btn.set_tooltip_text("우클릭: 기기 삭제")
+            btn.set_tooltip_text("Right-click: forget device")
         return btn
 
     # ── 동작 ──
@@ -210,13 +210,13 @@ class BluetoothPanel(Panel):
         self.busy.add(path)
         self.render()
         if dev.get("Connected"):
-            self.say(f"{name} 연결 해제 중…")
+            self.say(f"Disconnecting {name}…")
             self.call(path, "org.bluez.Device1", "Disconnect", done=self.done(path))
         elif dev.get("Paired"):
-            self.say(f"{name} 연결 중…")
+            self.say(f"Connecting {name}…")
             self.call(path, "org.bluez.Device1", "Connect", done=self.done(path))
         else:
-            self.say(f"{name} 페어링 중…")
+            self.say(f"Pairing {name}…")
 
             def paired(err):
                 if err:
@@ -228,7 +228,7 @@ class BluetoothPanel(Panel):
 
     def forget(self, path, dev):
         if self.adapter:
-            self.say(f"{dev.get('Alias')} 삭제 중…")
+            self.say(f"Removing {dev.get('Alias')}…")
             self.call(self.adapter, "org.bluez.Adapter1", "RemoveDevice",
                       GLib.Variant("(o)", (path,)), done=self.done(path))
 

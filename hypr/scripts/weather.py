@@ -27,15 +27,6 @@ _ICONS = [
 ICON_RAIN = "\U000F0597"  # 비(약) — 나머지
 ICON_HUMID = "\U000F058E"
 
-DESC_KO = {
-    113: "맑음", 116: "구름 조금", 119: "흐림", 122: "흐림", 143: "옅은 안개", 248: "안개", 260: "안개",
-    176: "곳에 따라 비", 263: "이슬비", 266: "이슬비", 293: "약한 비", 296: "약한 비", 353: "약한 소나기",
-    299: "비", 302: "비", 305: "강한 비", 308: "강한 비", 356: "소나기", 359: "폭우",
-    200: "뇌우", 386: "뇌우", 389: "뇌우", 392: "뇌우와 눈", 395: "뇌우와 눈",
-    179: "곳에 따라 눈", 227: "날림 눈", 230: "눈보라", 323: "약한 눈", 326: "약한 눈", 329: "눈",
-    332: "눈", 335: "많은 눈", 338: "폭설", 368: "약한 눈", 371: "눈", 182: "진눈깨비", 185: "진눈깨비",
-    317: "진눈깨비", 320: "진눈깨비", 350: "우박", 362: "진눈깨비", 365: "진눈깨비", 374: "우박", 377: "우박",
-}
 
 
 def icon_for(code, night=False):
@@ -61,7 +52,7 @@ def _fetch():
         "wind": int(c["windspeedKmph"]),
         "code": code,
         "icon": icon_for(code, night=hour < 6 or hour >= 19),
-        "desc": DESC_KO.get(code, c["weatherDesc"][0]["value"]),
+        "desc": c["weatherDesc"][0]["value"].strip(),
         "place": area["areaName"][0]["value"],
         "uv": int(c.get("uvIndex", 0) or 0),
         "pressure": int(c.get("pressure", 0) or 0),
@@ -77,7 +68,7 @@ def _fetch():
         rain = max(int(h.get("chanceofrain", 0) or 0) for h in w["hourly"])
         data["days"].append({"date": w["date"], "max": int(w["maxtempC"]), "min": int(w["mintempC"]),
                              "code": noon, "icon": icon_for(noon),
-                             "desc": DESC_KO.get(noon, w["hourly"][4]["weatherDesc"][0]["value"]),
+                             "desc": w["hourly"][4]["weatherDesc"][0]["value"].strip(),
                              "rain": rain})
     return data
 
@@ -119,10 +110,10 @@ def get(force=False):
 def waybar():
     d = get()
     if not d:
-        print(json.dumps({"text": "", "class": "unavailable", "tooltip": "날씨 정보를 가져올 수 없어요"}))
+        print(json.dumps({"text": "", "class": "unavailable", "tooltip": "Weather unavailable"}))
         return
     text = f"{d['icon']}  {d['temp']}°  {ICON_HUMID} {d['humidity']}%"
-    tip = f"{d['place']} · {d['desc']}\n체감 {d['feels']}° · 바람 {d['wind']} km/h"
+    tip = f"{d['place']} · {d['desc']}\nFeels {d['feels']}° · Wind {d['wind']} km/h"
     print(json.dumps({"text": text, "tooltip": tip, "class": "ok"}, ensure_ascii=False))
 
 

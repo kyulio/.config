@@ -150,7 +150,7 @@
     "backlight": {
         "format": "{icon}",
         "format-icons": ["󰃞", "󰃟", "󰃠"],
-        "tooltip-format": "밝기 {percent}%",
+        "tooltip-format": "Brightness {percent}%",
         "on-click": "swaync-client -t -sw"
     },
 

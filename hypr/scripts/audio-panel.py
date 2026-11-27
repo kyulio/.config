@@ -43,7 +43,7 @@ class VolumeRow(Gtk.Box):
         super().__init__(spacing=8)
         self.mic = mic
         self.on_volume = on_volume
-        self.btn = Gtk.Button(focusable=False, tooltip_text="음소거")
+        self.btn = Gtk.Button(focusable=False, tooltip_text="Mute")
         self.btn.add_css_class("icon-btn")
         self.btn.connect("clicked", lambda *_: on_mute())
         self.append(self.btn)

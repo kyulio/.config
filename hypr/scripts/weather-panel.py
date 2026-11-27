@@ -14,7 +14,7 @@ import weather  # noqa: E402
 
 ICON_REFRESH = "\U000F0450"
 ICON_RAIN = "\U000F058C"
-WEEKDAYS = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"]
+WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
 CSS = """
 .day-max { color: #ffffff; min-width: 34px; }
@@ -47,7 +47,7 @@ class WeatherPanel(Panel):
         titles.append(self.hero_name)
         titles.append(self.hero_sub)
         self.refresh_btn = Gtk.Button(label=ICON_REFRESH, focusable=False, valign=Gtk.Align.CENTER,
-                                      tooltip_text="새로고침")
+                                      tooltip_text="Refresh")
         self.refresh_btn.add_css_class("icon-btn")
         self.refresh_btn.connect("clicked", lambda *_: self.fetch(True))
         head.append(self.refresh_btn)
@@ -79,12 +79,12 @@ class WeatherPanel(Panel):
         self.status.set_visible(bool(text))
 
     def fetch(self, force):
-        self.say("업데이트 중…")
+        self.say("Updating…")
         self.refresh_btn.set_sensitive(False)
 
         def done(d):
             self.refresh_btn.set_sensitive(True)
-            self.say("" if d else "날씨 정보를 가져올 수 없어요")
+            self.say("" if d else "Weather unavailable")
             if d:
                 self.render(d)
         self.bg(lambda: weather.get(force), done)
@@ -110,7 +110,7 @@ class WeatherPanel(Panel):
         today = datetime.date.today()
         for day in d["days"]:
             date = datetime.date.fromisoformat(day["date"])
-            name = "오늘" if date == today else "내일" if date == today + datetime.timedelta(1) \
+            name = "Today" if date == today else "Tomorrow" if date == today + datetime.timedelta(1) \
                 else WEEKDAYS[date.weekday()]
             row = Gtk.Box(spacing=8)
             row.add_css_class("row-btn")

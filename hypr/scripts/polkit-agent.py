@@ -189,7 +189,7 @@ class Request:
             self.finish(True)
         else:  # 비밀번호 틀림 → 다시 시도
             if self.dialog:
-                self.dialog.show_error("비밀번호가 맞지 않아요")
+                self.dialog.show_error("Incorrect password")
             self.new_session()
 
     def finish(self, ok):

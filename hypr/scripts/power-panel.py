@@ -12,12 +12,12 @@ from panel_base import Gdk, Gtk, Panel, label, main, sep  # noqa: E402
 ICON_POWER = "\U000F0425"
 ACTIONS = [
     # (키, 아이콘, 이름, 설명, 명령)
-    ("l", "\U000F033E", "Lock", "화면 잠금", "hyprlock"),
-    ("e", "\U000F0343", "Logout", "세션 종료",
+    ("l", "\U000F033E", "Lock", "Lock the screen", "hyprlock"),
+    ("e", "\U000F0343", "Logout", "End the session",
      "command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"),
-    ("u", "\U000F04B2", "Suspend", "절전", "systemctl suspend"),
-    ("r", "\U000F0709", "Reboot", "다시 시작", "systemctl reboot"),
-    ("s", "\U000F0425", "Shutdown", "시스템 종료", "systemctl poweroff"),
+    ("u", "\U000F04B2", "Suspend", "Sleep", "systemctl suspend"),
+    ("r", "\U000F0709", "Reboot", "Restart the system", "systemctl reboot"),
+    ("s", "\U000F0425", "Shutdown", "Power off", "systemctl poweroff"),
 ]
 
 

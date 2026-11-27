@@ -68,7 +68,7 @@ class WifiPanel(Panel):
         titles.append(self.hero_name)
         titles.append(self.hero_sub)
         rescan = Gtk.Button(label=ICON_REFRESH, focusable=False, valign=Gtk.Align.CENTER,
-                            tooltip_text="다시 검색")
+                            tooltip_text="Rescan")
         rescan.add_css_class("icon-btn")
         rescan.connect("clicked", lambda *_: self.rescan())
         head.append(rescan)
@@ -107,7 +107,7 @@ class WifiPanel(Panel):
             b.connect("clicked", self.on_dns, name)
             segs.append(b)
             self.seg_buttons[name] = b
-        self.custom_dns = Gtk.Entry(placeholder_text="예: 9.9.9.9 149.112.112.112", visible=False)
+        self.custom_dns = Gtk.Entry(placeholder_text="e.g. 9.9.9.9 149.112.112.112", visible=False)
         self.custom_dns.connect("activate", lambda e: self.apply_dns(e.get_text().strip()))
         self.body.append(self.custom_dns)
 
@@ -265,17 +265,17 @@ class WifiPanel(Panel):
             forget = Gtk.GestureClick(button=3)
             forget.connect("pressed", lambda *_: self.forget(n["ssid"]))
             btn.add_controller(forget)
-            btn.set_tooltip_text("우클릭: 저장된 네트워크 삭제")
+            btn.set_tooltip_text("Right-click: forget network")
         wrap.append(btn)
         return wrap
 
     # ── 동작 ──
     def on_net(self, n, known, wrap):
         if n["inuse"]:
-            self.say(f"{n['ssid']} 연결 해제 중…")
+            self.say(f"Disconnecting {n['ssid']}…")
             self.bg(lambda: run("nmcli", "device", "disconnect", self.dev), self.after)
         elif known:
-            self.say(f"{n['ssid']} 연결 중…")
+            self.say(f"Connecting to {n['ssid']}…")
             con = self.known[n["ssid"]]
             self.bg(lambda: run("nmcli", "connection", "up", "id", con, timeout=40), self.after)
         elif n["secure"]:
@@ -283,7 +283,7 @@ class WifiPanel(Panel):
                 return
             self.expanded = n["ssid"]
             self.hold_open = True
-            entry = Gtk.Entry(visibility=False, placeholder_text=f"{n['ssid']} 비밀번호")
+            entry = Gtk.Entry(visibility=False, placeholder_text=f"Password for {n['ssid']}")
             entry.connect("activate", lambda e: self.connect_new(n["ssid"], e.get_text()))
             wrap.append(entry)
             entry.grab_focus()
@@ -291,7 +291,7 @@ class WifiPanel(Panel):
             self.connect_new(n["ssid"], None)
 
     def connect_new(self, ssid, password):
-        self.say(f"{ssid} 연결 중…")
+        self.say(f"Connecting to {ssid}…")
         args = ["nmcli", "device", "wifi", "connect", ssid] + (["password", password] if password else [])
         self.expanded, self.hold_open = None, False
         self.bg(lambda: run(*args, timeout=40), self.after)
@@ -299,16 +299,16 @@ class WifiPanel(Panel):
     def forget(self, ssid):
         con = self.known.get(ssid)
         if con:
-            self.say(f"{ssid} 삭제 중…")
+            self.say(f"Forgetting {ssid}…")
             self.bg(lambda: run("nmcli", "connection", "delete", "id", con), self.after)
 
     def after(self, res):
         code, _, err = res
-        self.say("" if code == 0 else (err.splitlines() or ["실패"])[-1][:80])
+        self.say("" if code == 0 else (err.splitlines() or ["Failed"])[-1][:80])
         self.refresh_all()
 
     def rescan(self):
-        self.say("검색 중…")
+        self.say("Scanning…")
         self.bg(lambda: run("nmcli", "device", "wifi", "rescan"), lambda _r: (self.say(""), self.refresh_all()))
 
     def on_switch(self, sw, _p):
@@ -332,7 +332,7 @@ class WifiPanel(Panel):
 
     def apply_dns(self, servers):
         if not self.current_con:
-            self.say("연결된 네트워크가 없어요")
+            self.say("Not connected to a network")
             return
         con, dev = self.current_con, self.dev
 
@@ -344,7 +344,7 @@ class WifiPanel(Panel):
                 r = run("nmcli", "connection", "modify", con, "ipv4.dns", "", "ipv4.ignore-auto-dns", "no")
             return r if r[0] != 0 else run("nmcli", "device", "reapply", dev)
 
-        self.say("DNS 적용 중…")
+        self.say("Applying DNS…")
         self.bg(work, self.after)
 
     # ── 주기 갱신 ──

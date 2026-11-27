@@ -71,7 +71,7 @@ class BatteryPanel(Panel):
         card.append(label("CHARGE LIMIT", "section"))
         self.limit_btns = self.segs(card, [(n, f"{n}%") for n in LIMITS], self.set_limit)
 
-        card.append(label("GPU MODE  ·  재로그인 후 적용", "section"))
+        card.append(label("GPU MODE  ·  APPLIES AFTER RELOGIN", "section"))
         self.gpu_box = Gtk.Box(spacing=6, homogeneous=True)
         card.append(self.gpu_box)
         self.gpu_btns = {}
@@ -163,7 +163,7 @@ class BatteryPanel(Panel):
 
     def after(self, res):
         code, _, err = res
-        self.say("" if code == 0 else (err.splitlines() or ["실패"])[-1][:80])
+        self.say("" if code == 0 else (err.splitlines() or ["Failed"])[-1][:80])
         self.refresh_sysfs()
         self.refresh_tools()
 
@@ -177,9 +177,9 @@ class BatteryPanel(Panel):
 
     def set_gpu(self, mode):
         self.mark(self.gpu_btns, mode)
-        self.say(f"GPU 모드 → {GPU_LABELS.get(mode, mode)} (로그아웃 후 적용)")
+        self.say(f"GPU mode → {GPU_LABELS.get(mode, mode)} (log out to apply)")
         self.bg(lambda: run("supergfxctl", "-m", mode, timeout=30),
-                lambda r: self.say(f"GPU 모드 → {GPU_LABELS.get(mode, mode)} · 로그아웃 후 적용") if r[0] == 0 else self.after(r))
+                lambda r: self.say(f"GPU mode → {GPU_LABELS.get(mode, mode)} · log out to apply") if r[0] == 0 else self.after(r))
 
 
 if __name__ == "__main__":
