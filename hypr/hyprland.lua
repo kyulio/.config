@@ -270,6 +270,8 @@ hl.bind("Print", hl.dsp.exec_cmd("mkdir -p ~/Pictures && grim ~/Pictures/$(date 
 ---- WINDOWS AND WORKSPACES ----
 --------------------------------
 
+-- 창 뒤로 비치는 배경화면은 블러 없이 (패널/waybar/rofi 레이어 블러는 유지)
+hl.window_rule({ name = "no-window-blur", match = { class = ".*" }, no_blur = true })
 hl.layer_rule({ name = "waybar-blur", match = { namespace = "waybar" }, blur = true, ignore_alpha = 0.2 })
 hl.layer_rule({ name = "rofi-blur", match = { namespace = "rofi" }, blur = true, ignore_alpha = 0.2 })
 hl.layer_rule({ name = "kyulio-panel-blur", match = { namespace = "kyulio-panel" }, blur = true, ignore_alpha = 0.2 })
