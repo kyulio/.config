@@ -6,8 +6,8 @@
     "height": 30,
     "spacing": 0,
     "modules-left": ["custom/power", "hyprland/workspaces", "custom/spectrum"],
-    "modules-center": ["clock"],
-    "modules-right": ["custom/weather", "group/tray-expander", "bluetooth", "network", "pulseaudio", "backlight", "cpu", "battery", "custom/notification"],
+    "modules-center": ["custom/spacer", "clock", "custom/weather"],
+    "modules-right": ["group/tray-expander", "bluetooth", "network", "pulseaudio", "backlight", "cpu", "battery", "custom/notification"],
 
     "custom/power": {
         "format": "⭘",
@@ -43,7 +43,14 @@
         "tooltip": false
     },
 
+    // 날씨와 같은 폭의 빈칸 → 시계가 항상 정중앙 (날씨는 시계 오른쪽)
+    "custom/spacer": {
+        "format": " ",
+        "tooltip": false
+    },
+
     "custom/weather": {
+        "align": 0,
         "exec": "/home/kyulio/.config/hypr/scripts/weather.py --waybar",
         "return-type": "json",
         "interval": 600,
