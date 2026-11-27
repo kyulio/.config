@@ -6,7 +6,7 @@
     "height": 30,
     "spacing": 0,
     "modules-left": ["custom/power", "hyprland/workspaces", "custom/spectrum"],
-    "modules-center": ["clock", "custom/weather"],
+    "modules-center": ["custom/spacer", "clock", "custom/weather"],
     "modules-right": ["group/tray-expander", "bluetooth", "network", "pulseaudio", "backlight", "cpu", "battery", "custom/notification"],
 
     "custom/power": {
@@ -43,7 +43,14 @@
         "tooltip": false
     },
 
+    // 날씨와 같은 폭의 빈칸 → 시계가 정확히 화면 중앙에 오도록
+    "custom/spacer": {
+        "format": " ",
+        "tooltip": false
+    },
+
     "custom/weather": {
+        "align": 0,
         "exec": "/home/kyulio/.config/hypr/scripts/weather.py --waybar",
         "return-type": "json",
         "interval": 600,
