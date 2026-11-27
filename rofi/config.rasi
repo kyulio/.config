@@ -10,6 +10,10 @@ configuration {
     drun-display-format:   "{name}";
     window-format:         "{w}  {t}";
     font:                  "GeistMono Nerd Font Propo,Pretendard 10";
+    // "tetrio" 로 "TETR.IO" 처럼 사이에 다른 글자가 있어도 찾기
+    matching:              "fuzzy";
+    sort:                  true;
+    sorting-method:        "fzf";
 }
 
 * {
