@@ -27,7 +27,7 @@ hl.monitor({
 
 local terminal    = "kitty"
 local fileManager = "kitty yazi"
-local menu        = "rofi -show drun"
+local menu        = "rofi -i -show drun"
 
 -------------------
 ---- AUTOSTART ----

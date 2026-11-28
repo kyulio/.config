@@ -9,7 +9,7 @@ WIFI_STATUS=$(nmcli radio wifi)
 
 if [ "$WIFI_STATUS" = "disabled" ]; then
     OPTIONS="󰖩  Turn On Wifi\n󰑐  Rescan"
-    CHOICE=$(echo -e "$OPTIONS" | rofi -dmenu -no-show-icons -p "Wi-Fi (Disabled)" -theme ~/.config/rofi/panel.rasi)
+    CHOICE=$(echo -e "$OPTIONS" | rofi -dmenu -i -no-show-icons -p "Wi-Fi (Disabled)" -theme ~/.config/rofi/panel.rasi)
     case "$CHOICE" in
         *Turn*)
             nmcli radio wifi on
@@ -72,7 +72,7 @@ done <<< "$RAW_LIST"
 OPTIONS="${OPTIONS}󰖪  Turn Off Wifi\n󰑐  Rescan"
 
 # Show Rofi menu
-CHOICE=$(echo -e "$OPTIONS" | rofi -dmenu -no-show-icons -p "Wi-Fi" -theme ~/.config/rofi/panel.rasi)
+CHOICE=$(echo -e "$OPTIONS" | rofi -dmenu -i -no-show-icons -p "Wi-Fi" -theme ~/.config/rofi/panel.rasi)
 
 # Exit if cancelled
 [ -z "$CHOICE" ] && exit 0

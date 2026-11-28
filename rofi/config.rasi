@@ -10,8 +10,11 @@ configuration {
     drun-display-format:   "{name}";
     window-format:         "{w}  {t}";
     font:                  "GeistMono Nerd Font Propo,Pretendard 10";
-    // "tetrio" 로 "TETR.IO" 처럼 사이에 다른 글자가 있어도 찾기
-    matching:              "fuzzy";
+    // 이름·실행파일·키워드만 정확 부분일치 검색 (대소문자 무시, fuzzy 오탐 방지)
+    drun-match-fields:     "name,exec,keywords";
+    case-sensitive:        false;
+    case-smart:            false;
+    matching:              "normal";
     sort:                  true;
     sorting-method:        "fzf";
 }
@@ -110,7 +113,7 @@ listview {
     cycle:        true;
     dynamic:      true;
     scrollbar:    false;
-    fixed-height: false;
+    fixed-height: true;
     cursor:       "default";
 }
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 OPTIONS="󰢮 Integrated (Eco)\n󰢮 Hybrid (Standard)\n󰢮 Dedicated (Gaming)"
-CHOICE=$(echo -e "$OPTIONS" | rofi -dmenu -no-show-icons -p "GPU Mode" -theme ~/.config/rofi/panel.rasi)
+CHOICE=$(echo -e "$OPTIONS" | rofi -dmenu -i -no-show-icons -p "GPU Mode" -theme ~/.config/rofi/panel.rasi)
 
 case "$CHOICE" in
     *Integrated*) supergfxctl -m Integrated && notify-send -i computer "GPU" "Integrated Mode Set\n(Applies after logout or reboot)" ;;

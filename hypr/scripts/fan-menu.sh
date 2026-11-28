@@ -1,6 +1,6 @@
 #!/bin/bash
 OPTIONS="󰌢 Quiet\n󰾆 Balanced\n󰈐 Performance"
-CHOICE=$(echo -e "$OPTIONS" | rofi -dmenu -no-show-icons -p "Fan Profile" -theme ~/.config/rofi/panel.rasi)
+CHOICE=$(echo -e "$OPTIONS" | rofi -dmenu -i -no-show-icons -p "Fan Profile" -theme ~/.config/rofi/panel.rasi)
 
 case "$CHOICE" in
     *Quiet*)       asusctl profile set Quiet       && notify-send -i preferences-system-power "Profile" "Quiet Mode Set" ;;

@@ -59,6 +59,7 @@
 
     "custom/spectrum": {
         "exec": "/home/kyulio/.config/hypr/scripts/spectrum.sh",
+        "restart-interval": 5,
         "format": "{}",
         "tooltip": false,
         "escape": true
